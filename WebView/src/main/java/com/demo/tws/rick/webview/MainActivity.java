@@ -1,14 +1,14 @@
 package com.demo.tws.rick.webview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private WebView mWebView;
     private TextView logTextView;
 
@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mWebView = (WebView) findViewById(R.id.webview);
+        setTitle("MainActivity");
 
         // 启用javascript
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -25,17 +26,11 @@ public class MainActivity extends AppCompatActivity {
         mWebView.loadUrl("file:///android_asset/test.html");
 
         // 注入一个Java对象给JS调用
-        mWebView.addJavascriptInterface(this, "wx");
+        mWebView.addJavascriptInterface(this, "ZWT_javaFunc");
         logTextView = (TextView) findViewById(R.id.text);
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                // 无参数调用
-                mWebView.loadUrl("javascript:actionFromNative()");
-                // 传递参数调用
-                mWebView.loadUrl("javascript:actionFromNativeWithParam(" + "'come from Native'" + ")");
-            }
-        });
+
+        findViewById(R.id.btn_native).setOnClickListener(this);
+        findViewById(R.id.btn_second).setOnClickListener(this);
     }
 
     @android.webkit.JavascriptInterface
@@ -60,5 +55,20 @@ public class MainActivity extends AppCompatActivity {
                 logTextView.setText(text);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_native:
+                // 无参数调用
+                mWebView.loadUrl("javascript:actionFromNative()");
+                // 传递参数调用
+                mWebView.loadUrl("javascript:actionFromNativeWithParam(" + "'come from Native'" + ")");
+                break;
+            case R.id.btn_second:
+                startActivity(new Intent(MainActivity.this, SecondActivity.class));
+                break;
+        }
     }
 }
