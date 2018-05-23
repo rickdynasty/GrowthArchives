@@ -1,0 +1,19 @@
+    --------- beginning of crash
+05-21 08:43:13.972 29254-29254/com.example.mysmall.helloworld E/AndroidRuntime: FATAL EXCEPTION: main
+    Process: com.example.mysmall.helloworld, PID: 29254
+    android.view.WindowManager$BadTokenException: Unable to add window -- token null is not valid; is your activity running?
+        at android.view.ViewRootImpl.setView(ViewRootImpl.java:881)
+        at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:372)
+        at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:128)
+        at com.example.mysmall.tools.Toast.show(Toast.java:55)
+        at com.example.mysmall.helloworld.MainActivity.onClick(MainActivity.java:37)
+        at android.view.View.performClick(View.java:6291)
+        at android.view.View$PerformClick.run(View.java:24931)
+        at android.os.Handler.handleCallback(Handler.java:808)
+        at android.os.Handler.dispatchMessage(Handler.java:101)
+        at android.os.Looper.loop(Looper.java:166)
+        at android.app.ActivityThread.main(ActivityThread.java:7425)
+        at java.lang.reflect.Method.invoke(Native Method)
+        at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:245)
+        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:921)
+05-21 08:43:13.994 29254-29254/com.example.mysmall.helloworld I/Process: Sending signal. PID: 29254 SIG: 9
