@@ -1,1 +1,1 @@
-include ':EventBus', ':RxAndroid', ':WebView', ':SecurityStrategy'
+include ':EventBus', ':RxAndroid', ':WebView', ':SecurityStrategy', ':Configuration'
