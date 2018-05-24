@@ -4,17 +4,20 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Space;
+import android.widget.Toast;
 
 import com.rick.tws.utils.DensityUtil;
 import com.rick.tws.widget.CardGroupContainer;
 import com.rick.tws.widget.CardLinearContainer;
+import com.rick.tws.widget.MetroCard;
 import com.rick.tws.widget.MetroCardFactory;
 import com.rick.tws.widget.MetroUI;
 import com.rick.tws.widget.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private MetroUI mMainArea;
 
@@ -74,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
         Space space2 = new Space(this);
         LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(this, 15));
         mMainArea.addView(space2, lp2);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v instanceof MetroCard){
+            Toast.makeText(this,"点击了Card："+((MetroCard)v).getTitle(),Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

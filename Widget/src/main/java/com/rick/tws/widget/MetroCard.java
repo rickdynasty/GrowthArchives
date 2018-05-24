@@ -115,4 +115,12 @@ public class MetroCard extends RelativeLayout {
             mTitle.setTextColor(mTextColor_normal);
         }
     }
+
+    public CharSequence getTitle(){
+        if (null == mTitle) {
+            throw new RuntimeException("The \"null == mTileTv\" scenario is theoretically absent~!");
+        }
+
+        return mTitle.getText();
+    }
 }

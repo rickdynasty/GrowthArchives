@@ -3,6 +3,7 @@ package com.rick.tws.widget;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
+import android.view.View;
 
 public class MetroCardFactory {
     public static final int NOTIFY_CARD = 0;       //特别关注
@@ -19,11 +20,19 @@ public class MetroCardFactory {
         MetroCard metroCard = new MetroCard(context);
         metroCard.setCardContent(title, iconRes, shadowRes, bgGradientColors);
 
+        if(context instanceof View.OnClickListener){
+            metroCard.setOnClickListener((View.OnClickListener) context);
+        }
+
         return metroCard;
     }
 
     public static MetroCard createMetroCard(Context context, int type) {
         MetroCard metroCard = new MetroCard(context);
+        if(context instanceof View.OnClickListener){
+            metroCard.setOnClickListener((View.OnClickListener) context);
+        }
+
         String title = "unknow";
         int iconRes = R.drawable.ic_launcher;
         int shadowRes = R.drawable.ic_launcher;
