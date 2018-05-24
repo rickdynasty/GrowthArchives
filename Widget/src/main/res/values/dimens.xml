@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_linear_container_height">114dp</dimen>
+    <dimen name="metro_ui_margin_top">10dp</dimen>
+    <dimen name="metro_ui_margin_left">5dp</dimen>
+    <dimen name="metro_ui_margin_right">5dp</dimen>
+</resources>
