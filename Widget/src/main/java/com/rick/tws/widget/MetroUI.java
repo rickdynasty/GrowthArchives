@@ -41,4 +41,8 @@ public class MetroUI extends LinearLayout {
     public void addOneLinearCard(CardLinearContainer linearCard) {
         addView(linearCard);
     }
+
+    public void addOneGroupCard(CardGroupContainer groupContainer){
+        addView(groupContainer);
+    }
 }

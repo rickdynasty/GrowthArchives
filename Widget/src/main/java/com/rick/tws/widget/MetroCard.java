@@ -2,7 +2,6 @@ package com.rick.tws.widget;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
@@ -46,6 +45,14 @@ public class MetroCard extends RelativeLayout {
         mTitle = view.findViewById(R.id.card_title);
     }
 
+    public void setCardContent(CharSequence title, final int iconRes, final int shadowRes) {
+        Log.i(TAG, "title=" + title);
+        setBackgroundResource(shadowRes);
+        mTitle.setText(title);
+        mIcon.setImageResource(iconRes);
+        mBackgroundImage.setVisibility(View.GONE);
+    }
+
     public void setCardContent(CharSequence title, final int iconRes, final int shadowRes, final int bgRes, final boolean isDrawalbeBgRes) {
         Log.i(TAG, "title=" + title);
         setBackgroundResource(shadowRes);
@@ -58,22 +65,28 @@ public class MetroCard extends RelativeLayout {
         }
     }
 
-    public void setCardGradientColor(@ColorInt int[] colors) {
+    public void setCardContent(CharSequence title, final int iconRes, final int shadowRes, @ColorInt int[] bgGradientColors) {
+        Log.i(TAG, "title=" + title);
+        setBackgroundResource(shadowRes);
+        mTitle.setText(title);
+        mIcon.setImageResource(iconRes);
+        setCardGradientColor(bgGradientColors);
+    }
+
+    public void setCardGradientColor(final int[] colors) {
         setCardGradientColor(GradientDrawable.Orientation.TR_BL, colors);
     }
 
     public void setCardGradientColor(GradientDrawable.Orientation orientation, @ColorInt int[] colors) {
         if (null == mGradientDrawable) {
-            mGradientDrawable = new GradientDrawable(orientation, colors);
-        } else {
-            if (mGradientDrawable.getOrientation() != orientation) {
-                mGradientDrawable.setOrientation(orientation);
-            }
-
-            mGradientDrawable.setColors(colors);
+            mGradientDrawable = new GradientDrawable();
+            mGradientDrawable.setShape(GradientDrawable.RECTANGLE);
         }
 
-        setBackground(mGradientDrawable);
+        mGradientDrawable.setOrientation(orientation);
+        mGradientDrawable.setColors(colors);
+
+        mBackgroundImage.setImageDrawable(mGradientDrawable);
     }
 
     public void setTextColorNormal(int color) {

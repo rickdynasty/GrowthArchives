@@ -1,4 +1,4 @@
-package com.rick.tws;
+package com.rick.tws.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
