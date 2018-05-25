@@ -108,6 +108,8 @@ public class MetroCardFactory {
         }
 
         MetroCard metroCard = new MetroCard(context);
+        metroCard.setCardType(cardStruct.getCardType());
+
         if (cardStruct.gradientCenterEffective()) {
             metroCard.setCardContent(
                     cardStruct.getCardType(),

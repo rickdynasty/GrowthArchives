@@ -1,13 +1,13 @@
 package com.rick.tws.widget;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -42,16 +42,52 @@ public class MetroCard extends RelativeLayout {
         this(context, attrs, defStyleAttr, 0);
     }
 
+    public void setCardType(int cardType) {
+        mCardType = cardType;
+    }
+
     public MetroCard(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+    }
 
-        View view = LayoutInflater.from(context).inflate(R.layout.metrocard_item, this, true);
-        mBackgroundImage = view.findViewById(R.id.background_image);
-        mIcon = view.findViewById(R.id.card_icon);
-        mTitle = view.findViewById(R.id.card_title);
+    private void sureWidget() {
+        if (null == mBackgroundImage) {
+            mBackgroundImage = new ImageView(getContext());
+            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            addView(mBackgroundImage, lp);
+        }
+
+        if (null == mIcon) {
+            mIcon = new ImageView(getContext());
+            final Resources res = getResources();
+            LayoutParams lp = new LayoutParams(res.getDimensionPixelSize(R.dimen.metro_ui_card_with), res.getDimensionPixelSize(R.dimen.metro_ui_card_height));
+            lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            if (0 == mCardType) {
+                lp.topMargin = res.getDimensionPixelSize(R.dimen.card_icon_margin_top_0);
+            } else {
+                lp.topMargin = res.getDimensionPixelSize(R.dimen.card_icon_margin_top_1);
+            }
+            addView(mIcon, lp);
+        }
+
+        if (null == mTitle) {
+            mTitle = new TextView(getContext());
+            final Resources res = getResources();
+            LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            if (0 == mCardType) {
+                lp.leftMargin = res.getDimensionPixelSize(R.dimen.card_title_margin_left_0);
+                lp.topMargin = res.getDimensionPixelSize(R.dimen.card_title_margin_top_0);
+            } else {
+                lp.bottomMargin = res.getDimensionPixelSize(R.dimen.card_title_margin_bottom_1);
+                lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            }
+            addView(mTitle, lp);
+        }
     }
 
     public void setCardContent(CharSequence title, final int iconRes, final int shadowRes) {
+        sureWidget();
         Log.i(TAG, "title=" + title);
         setBackgroundResource(shadowRes);
         mTitle.setText(title);
@@ -60,6 +96,7 @@ public class MetroCard extends RelativeLayout {
     }
 
     public void setCardContent(CharSequence title, final int iconRes, final int shadowRes, final int bgRes, final boolean isDrawalbeBgRes) {
+        sureWidget();
         Log.i(TAG, "title=" + title);
         setBackgroundResource(shadowRes);
         mTitle.setText(title);
@@ -72,11 +109,28 @@ public class MetroCard extends RelativeLayout {
     }
 
     public void setCardContent(CharSequence title, final int iconRes, final int shadowRes, @ColorInt int[] bgGradientColors) {
+        sureWidget();
         Log.i(TAG, "title=" + title);
         setBackgroundResource(shadowRes);
         mTitle.setText(title);
         mIcon.setImageResource(iconRes);
         setCardGradientColor(bgGradientColors);
+    }
+
+    public void setCardContent(int cardType, String title, String iconName, String shadowResName, int[] colors, int cardContentType, String cardContent) {
+        sureWidget();
+        Log.i(TAG, "title=" + title);
+
+        mCardType = cardType;
+
+        setBackgroundResource(getResources().getIdentifier(shadowResName, "drawable", getContext().getApplicationInfo().packageName));
+        mTitle.setText(title);
+        mIcon.setImageResource(getResources().getIdentifier(iconName, "drawable", getContext().getApplicationInfo().packageName));
+        if (null != colors) {
+            setCardGradientColor(colors);
+        }
+        mContentType = cardContentType;
+        mContent = cardContent;
     }
 
     public void setCardGradientColor(final int[] colors) {
@@ -130,18 +184,11 @@ public class MetroCard extends RelativeLayout {
         return mTitle.getText();
     }
 
-    public void setCardContent(int cardType, String title, String iconName, String shadowResName, int[] colors, int cardContentType, String cardContent) {
-        Log.i(TAG, "title=" + title);
+    public int getContentType() {
+        return mContentType;
+    }
 
-        mCardType = cardType;
-
-        setBackgroundResource(getResources().getIdentifier(shadowResName, "drawable", getContext().getApplicationInfo().packageName));
-        mTitle.setText(title);
-        mIcon.setImageResource(getResources().getIdentifier(iconName, "drawable", getContext().getApplicationInfo().packageName));
-        if (null != colors) {
-            setCardGradientColor(colors);
-        }
-        mContentType = cardContentType;
-        mContent = cardContent;
+    public String getContent() {
+        return mContent;
     }
 }

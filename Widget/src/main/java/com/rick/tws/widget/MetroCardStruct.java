@@ -17,7 +17,7 @@ public class MetroCardStruct {
     private String mTitle = "";
     private String mIcon = "";
     private String mShadowResName = "";
-    private int mCardType = -1;
+    private int mCardType = 0;
     private int mGradientStartColor = -1;
     private int mGradientCenterColor = -1;
     private int mGradientEndColor = -1;

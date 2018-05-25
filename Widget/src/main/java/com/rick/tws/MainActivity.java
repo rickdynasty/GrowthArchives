@@ -114,10 +114,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mMainArea.removeAllViews();
-        final String jsonStr = getJsonStringFromFile(jsonFileName, this);
 
         //从json文件中读取配置信息
-        JSONObject jsonObject = new JSONObject(jsonStr);
+        JSONObject jsonObject = new JSONObject(getJsonStringFromFile(jsonFileName, this));
         JSONObject jsonChildObject = null;
         JSONArray jsonArray = null;
 

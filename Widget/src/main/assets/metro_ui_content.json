@@ -183,6 +183,7 @@
       "startColor": "#FFFF0000",
       "endColor": "#FFFFFF00",
       "content_TYPE": "0",
+      "card_type": 1,
       "content": "点击Card后的去向"
     },
     {
@@ -194,6 +195,7 @@
       "centerColor": "#FF00FF00",
       "endColor": "#FFFFFF00",
       "content_TYPE": "0",
+      "card_type": 1,
       "content": "点击Card后的去向"
     }
   ]
