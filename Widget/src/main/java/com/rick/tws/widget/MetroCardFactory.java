@@ -2,7 +2,6 @@ package com.rick.tws.widget;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
 import android.view.View;
 
 public class MetroCardFactory {
@@ -16,20 +15,9 @@ public class MetroCardFactory {
     public static final int ARCHIVING_CARD = 5;         //归档
     public static final int OFFICIAL_CAR_CARD = 6;      //公务用车
 
-    public static MetroCard createMetroCard(Context context, String title,int iconRes,int shadowRes, int[] bgGradientColors){
-        MetroCard metroCard = new MetroCard(context);
-        metroCard.setCardContent(title, iconRes, shadowRes, bgGradientColors);
-
-        if(context instanceof View.OnClickListener){
-            metroCard.setOnClickListener((View.OnClickListener) context);
-        }
-
-        return metroCard;
-    }
-
     public static MetroCard createMetroCard(Context context, int type) {
         MetroCard metroCard = new MetroCard(context);
-        if(context instanceof View.OnClickListener){
+        if (context instanceof View.OnClickListener) {
             metroCard.setOnClickListener((View.OnClickListener) context);
         }
 
@@ -110,11 +98,48 @@ public class MetroCardFactory {
         } else {
             metroCard.setCardContent(title, iconRes, shadowRes);
         }
-//        if (0 != startColor || 0 != endColor) {
-//            metroCard.setCardGradientColor(new int[]{startColor, endColor});
-//        } else {
-//        metroCard.setBackgroundColor(bgColor);
-//        }
+
+        return metroCard;
+    }
+
+    public static MetroCard createMetroCard(Context context, MetroCardStruct cardStruct) {
+        if (null == cardStruct) {
+            return null;
+        }
+
+        MetroCard metroCard = new MetroCard(context);
+        if (cardStruct.gradientCenterEffective()) {
+            metroCard.setCardContent(
+                    cardStruct.getCardType(),
+                    cardStruct.getTitle(),
+                    cardStruct.getIconName(),
+                    cardStruct.getShadowResName(),
+                    new int[]{cardStruct.getGradientStartColor(), cardStruct.getGradientCenterColor(), cardStruct.getGradientEndColor()},
+                    cardStruct.getCardContentType(),
+                    cardStruct.getCardContent());
+        } else if (cardStruct.gradientEffective()) {
+            metroCard.setCardContent(
+                    cardStruct.getCardType(),
+                    cardStruct.getTitle(),
+                    cardStruct.getIconName(),
+                    cardStruct.getShadowResName(),
+                    new int[]{cardStruct.getGradientStartColor(), cardStruct.getGradientEndColor()},
+                    cardStruct.getCardContentType(),
+                    cardStruct.getCardContent());
+        } else {
+            metroCard.setCardContent(
+                    cardStruct.getCardType(),
+                    cardStruct.getTitle(),
+                    cardStruct.getIconName(),
+                    cardStruct.getShadowResName(),
+                    null,
+                    cardStruct.getCardContentType(),
+                    cardStruct.getCardContent());
+        }
+
+        if (context instanceof View.OnClickListener) {
+            metroCard.setOnClickListener((View.OnClickListener) context);
+        }
 
         return metroCard;
     }

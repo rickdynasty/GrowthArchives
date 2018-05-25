@@ -15,6 +15,12 @@ import android.widget.TextView;
 
 public class MetroCard extends RelativeLayout {
     private static final String TAG = "MetroCard";
+
+    private int mCardType = 0;
+
+    private int mContentType = 0;
+    private String mContent;
+
     private ImageView mBackgroundImage;
     private ImageView mIcon = null;
     private TextView mTitle = null;
@@ -116,11 +122,26 @@ public class MetroCard extends RelativeLayout {
         }
     }
 
-    public CharSequence getTitle(){
+    public CharSequence getTitle() {
         if (null == mTitle) {
             throw new RuntimeException("The \"null == mTileTv\" scenario is theoretically absent~!");
         }
 
         return mTitle.getText();
+    }
+
+    public void setCardContent(int cardType, String title, String iconName, String shadowResName, int[] colors, int cardContentType, String cardContent) {
+        Log.i(TAG, "title=" + title);
+
+        mCardType = cardType;
+
+        setBackgroundResource(getResources().getIdentifier(shadowResName, "drawable", getContext().getApplicationInfo().packageName));
+        mTitle.setText(title);
+        mIcon.setImageResource(getResources().getIdentifier(iconName, "drawable", getContext().getApplicationInfo().packageName));
+        if (null != colors) {
+            setCardGradientColor(colors);
+        }
+        mContentType = cardContentType;
+        mContent = cardContent;
     }
 }

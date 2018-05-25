@@ -5,11 +5,14 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Space;
 
 /**
  *
  */
 public class MetroUI extends LinearLayout {
+    private Context mContext;
+
     public MetroUI(Context context) {
         this(context, null);
     }
@@ -24,6 +27,7 @@ public class MetroUI extends LinearLayout {
 
     public MetroUI(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        mContext = context;
 
         //ver1.0只支持VERTICAL
         setOrientation(LinearLayout.VERTICAL);
@@ -42,7 +46,13 @@ public class MetroUI extends LinearLayout {
         addView(linearCard);
     }
 
-    public void addOneGroupCard(CardGroupContainer groupContainer){
+    public void addOneGroupCard(CardGroupContainer groupContainer) {
         addView(groupContainer);
+    }
+
+    public void addEndSpace(int height) {
+        Space space = new Space(mContext);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);
+        addView(space, lp);
     }
 }

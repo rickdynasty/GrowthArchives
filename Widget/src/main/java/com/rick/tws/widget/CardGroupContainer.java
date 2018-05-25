@@ -49,6 +49,10 @@ public class CardGroupContainer extends LinearLayout {
         return mGroupId;
     }
 
+    public void setGroupName(CharSequence groupName) {
+        setTile(groupName);
+    }
+
     public void setTile(CharSequence title) {
         if (null == mTileTv) {
             throw new RuntimeException("The \"null == mTileTv\" scenario is theoretically absent~!");

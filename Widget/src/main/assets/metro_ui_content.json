@@ -1,0 +1,205 @@
+{
+  "row01": [
+    {
+      "title": "会议管理",
+      "icon": "work_main_ic_hygl",
+      "shadow_drawable": "shadow_main_39b1b7",
+      "card_type": "0",
+      "startColor": "#FF39B1B7",
+      "endColor": "#FF1EDE81",
+      "content_TYPE": "0",
+      "content": "点击Card后的去向",
+      "weight": "2"
+    },
+    {
+      "title": "领导日程",
+      "icon": "work_main_leader_schedule_icon",
+      "shadow_drawable": "shadow_main_52b0ff",
+      "card_type": "0",
+      "startColor": "#FF1E78FF",
+      "endColor": "#FF52B0FF",
+      "content_TYPE": "0",
+      "content": "点击Card后的去向",
+      "weight": "1"
+    }
+  ],
+  "group01": {
+    "group_name": "组一",
+    "group_id": "1001",
+    "row01": [
+      {
+        "title": "签收",
+        "icon": "work_main_waitsign_icon",
+        "shadow_drawable": "shadow_main_ff9c68",
+        "card_type": "0",
+        "startColor": "#ffff0000",
+        "centerColor": "#ff00FF00",
+        "endColor": "#FFFFFF00",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      },
+      {
+        "title": "归档",
+        "icon": "work_main_collect_icon",
+        "shadow_drawable": "shadow_main_d38ffe",
+        "card_type": "0",
+        "startColor": "#FF8E33FE",
+        "endColor": "#FFD38FFE",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      },
+      {
+        "title": "公务用车",
+        "icon": "work_main_item_car_icon",
+        "shadow_drawable": "shadow_main_fd8da5",
+        "card_type": "0",
+        "startColor": "#FFFA5779",
+        "endColor": "#FFFD8DA5",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      }
+    ],
+    "row02": [
+      {
+        "title": "特别关注",
+        "icon": "work_main_ic_hygl",
+        "shadow_drawable": "shadow_specialcare",
+        "card_type": "0",
+        "startColor": "#FFCCCCCC",
+        "endColor": "#FFCCCCCC",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向",
+        "weight": "1"
+      },
+      {
+        "title": "我的日程",
+        "icon": "work_main_ic_hygl",
+        "shadow_drawable": "shadow_black_red",
+        "card_type": "0",
+        "startColor": "#FFFF0000",
+        "centerColor": "#FF00FF00",
+        "endColor": "#FFFFFF00",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向",
+        "weight": "2"
+      }
+    ]
+  },
+  "group02": {
+    "group_name": "组二",
+    "group_id": "1001",
+    "row01": [
+      {
+        "title": "签到",
+        "icon": "ic_launcher",
+        "shadow_drawable": "shadow_main_39b1b7",
+        "card_type": "0",
+        "startColor": "#FFFF0000",
+        "centerColor": "#FF00FF00",
+        "endColor": "#FFFFFF00",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      },
+      {
+        "title": "考勤打卡",
+        "icon": "ic_launcher",
+        "shadow_drawable": "shadow_main_39b1b7",
+        "card_type": "0",
+        "startColor": "#FFFF0000",
+        "centerColor": "#FF00FF00",
+        "endColor": "#FFFFFF00",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      },
+      {
+        "title": "日志",
+        "icon": "ic_launcher",
+        "shadow_drawable": "shadow_main_39b1b7",
+        "card_type": "0",
+        "startColor": "#FFFF0000",
+        "centerColor": "#FF00FF00",
+        "endColor": "#FFFFFF00",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      },
+      {
+        "title": "公告",
+        "icon": "ic_launcher",
+        "shadow_drawable": "shadow_main_39b1b7",
+        "card_type": "0",
+        "startColor": "#FFFF0000",
+        "centerColor": "#FF00FF00",
+        "endColor": "#FFFFFF00",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      }
+    ],
+    "row02": [
+      {
+        "title": "审批",
+        "icon": "ic_launcher",
+        "shadow_drawable": "shadow_main_39b1b7",
+        "card_type": "0",
+        "startColor": "#FFFF0000",
+        "centerColor": "#FF00FF00",
+        "endColor": "#FFFFFF00",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      },
+      {
+        "title": "会议预定",
+        "icon": "ic_launcher",
+        "shadow_drawable": "shadow_main_39b1b7",
+        "card_type": "0",
+        "startColor": "#FFFF0000",
+        "centerColor": "#FF00FF00",
+        "endColor": "#FFFFFF00",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      },
+      {
+        "title": "电话会议",
+        "icon": "ic_launcher",
+        "shadow_drawable": "shadow_main_39b1b7",
+        "card_type": "0",
+        "startColor": "#FFFF0000",
+        "endColor": "#FFFFFF00",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      },
+      {
+        "title": "视频会议",
+        "icon": "ic_launcher",
+        "shadow_drawable": "shadow_main_39b1b7",
+        "card_type": "0",
+        "startColor": "#FFFF0000",
+        "endColor": "#FFFFFF00",
+        "content_TYPE": "0",
+        "content": "点击Card后的去向"
+      }
+    ]
+  },
+  "row02": [
+    {
+      "title": "OA站点",
+      "icon": "ic_launcher",
+      "shadow_drawable": "shadow_main_39b1b7",
+      "card_type": "0",
+      "startColor": "#FFFF0000",
+      "endColor": "#FFFFFF00",
+      "content_TYPE": "0",
+      "content": "点击Card后的去向"
+    },
+    {
+      "title": "考勤通知",
+      "icon": "ic_launcher",
+      "shadow_drawable": "shadow_main_39b1b7",
+      "card_type": "0",
+      "startColor": "#FFFF0000",
+      "centerColor": "#FF00FF00",
+      "endColor": "#FFFFFF00",
+      "content_TYPE": "0",
+      "content": "点击Card后的去向"
+    }
+  ]
+}
