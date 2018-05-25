@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mMainArea.addOneGroupCard(groupContainer);
+
+        mMainArea.addEndSpace(DensityUtil.dip2px(this, 15));
     }
 
     // 处理row模块
@@ -136,49 +138,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mMainArea.addEndSpace(DensityUtil.dip2px(this, 15));
-//
-//        CardLinearContainer secondLinear = new CardLinearContainer(this);
-//        secondLinear.addOneCard(MetroCardFactory.createMetroCard(this, MetroCardFactory.MEETING_MANAGE_CARD));
-//        secondLinear.addOneCard(MetroCardFactory.createMetroCard(this, MetroCardFactory.LEADER_AGENDA_CARD));
-//        mMainArea.addOneLinearCard(secondLinear);
-//
-//        //添加第一个Group
-//        CardGroupContainer firstGroupContainer = new CardGroupContainer(this);
-//        firstGroupContainer.setGroupId(1001);
-//        firstGroupContainer.setTile("Group1001");
-//        CardLinearContainer firstGroupFirstLinear = new CardLinearContainer(this);
-//        firstGroupFirstLinear.addOneCard(MetroCardFactory.createMetroCard(this, MetroCardFactory.WAIT_SINGIN_CARD));
-//        firstGroupFirstLinear.addOneCard(MetroCardFactory.createMetroCard(this, MetroCardFactory.ARCHIVING_CARD));
-//        firstGroupFirstLinear.addOneCard(MetroCardFactory.createMetroCard(this, MetroCardFactory.OFFICIAL_CAR_CARD));
-//        firstGroupContainer.addOneLinearCard(firstGroupFirstLinear);
-//
-//        CardLinearContainer firstGroupSecondLinear = new CardLinearContainer(this);
-//        firstGroupSecondLinear.addOneCard(MetroCardFactory.createMetroCard(this, MetroCardFactory.NOTIFY_CARD), 2.0f);
-//        //添加一个spcae做分隔
-//        Space space = new Space(this);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(DensityUtil.dip2px(this, 2), LinearLayout.LayoutParams.MATCH_PARENT);
-//        firstGroupSecondLinear.addView(space, lp);
-//        firstGroupSecondLinear.addOneCard(MetroCardFactory.createMetroCard(this, MetroCardFactory.DATE_CARD), 1.0f);
-//        firstGroupContainer.addOneLinearCard(firstGroupSecondLinear);
-//        mMainArea.addOneGroupCard(firstGroupContainer);
-//
-//        //添加第二个Group
-//        CardGroupContainer secondGroupContainer = new CardGroupContainer(this);
-//        secondGroupContainer.setGroupId(1002);
-//        secondGroupContainer.setTile("Group1002");
-//        CardLinearContainer secondGroupSecondLinear = new CardLinearContainer(this);
-//        secondGroupSecondLinear.addOneCard(MetroCardFactory.createMetroCard(this, "G2l2-T01", R.drawable.ic_launcher, R.drawable.shadow_specialcare, new int[]{Color.RED, Color.YELLOW}), 1.0F);
-//        secondGroupSecondLinear.addOneCard(MetroCardFactory.createMetroCard(this, "G2l2-T02", R.drawable.ic_launcher, R.drawable.shadow_specialcare, new int[]{Color.RED, Color.YELLOW, Color.GREEN}), 2.0F);
-//        secondGroupContainer.addOneLinearCard(secondGroupSecondLinear);
-//        mMainArea.addOneGroupCard(secondGroupContainer);
     }
 
     @Override
     public void onClick(View v) {
         if (v instanceof MetroCard) {
-            Toast.makeText(this, "点击了Card：" + ((MetroCard) v).getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Card:" + ((MetroCard) v).getTitle(), Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private String getJsonStringFromFile(String fileName, Context context) {

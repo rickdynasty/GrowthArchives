@@ -32,9 +32,8 @@
         "icon": "work_main_waitsign_icon",
         "shadow_drawable": "shadow_main_ff9c68",
         "card_type": "0",
-        "startColor": "#ffff0000",
-        "centerColor": "#ff00FF00",
-        "endColor": "#FFFFFF00",
+        "startColor": "#FFFF6451",
+        "endColor": "#FFFF9C68",
         "content_TYPE": "0",
         "content": "点击Card后的去向"
       },
@@ -77,7 +76,6 @@
         "shadow_drawable": "shadow_black_red",
         "card_type": "0",
         "startColor": "#FFFF0000",
-        "centerColor": "#FF00FF00",
         "endColor": "#FFFFFF00",
         "content_TYPE": "0",
         "content": "点击Card后的去向",
@@ -91,7 +89,7 @@
     "row01": [
       {
         "title": "签到",
-        "icon": "ic_launcher",
+        "icon": "function_icon_attend_calendar",
         "shadow_drawable": "shadow_main_39b1b7",
         "card_type": "0",
         "startColor": "#FFFF0000",
@@ -102,18 +100,17 @@
       },
       {
         "title": "考勤打卡",
-        "icon": "ic_launcher",
+        "icon": "function_icon_attend",
         "shadow_drawable": "shadow_main_39b1b7",
         "card_type": "0",
         "startColor": "#FFFF0000",
-        "centerColor": "#FF00FF00",
         "endColor": "#FFFFFF00",
         "content_TYPE": "0",
         "content": "点击Card后的去向"
       },
       {
         "title": "日志",
-        "icon": "ic_launcher",
+        "icon": "function_icon_team_apply",
         "shadow_drawable": "shadow_main_39b1b7",
         "card_type": "0",
         "startColor": "#FFFF0000",
@@ -124,11 +121,10 @@
       },
       {
         "title": "公告",
-        "icon": "ic_launcher",
+        "icon": "function_icon_attend_calendar",
         "shadow_drawable": "shadow_main_39b1b7",
         "card_type": "0",
         "startColor": "#FFFF0000",
-        "centerColor": "#FF00FF00",
         "endColor": "#FFFFFF00",
         "content_TYPE": "0",
         "content": "点击Card后的去向"
@@ -137,18 +133,17 @@
     "row02": [
       {
         "title": "审批",
-        "icon": "ic_launcher",
+        "icon": "work_main_ic_rlkq",
         "shadow_drawable": "shadow_main_39b1b7",
         "card_type": "0",
         "startColor": "#FFFF0000",
-        "centerColor": "#FF00FF00",
         "endColor": "#FFFFFF00",
         "content_TYPE": "0",
         "content": "点击Card后的去向"
       },
       {
         "title": "会议预定",
-        "icon": "ic_launcher",
+        "icon": "function_icon_service_center",
         "shadow_drawable": "shadow_main_39b1b7",
         "card_type": "0",
         "startColor": "#FFFF0000",
@@ -159,7 +154,7 @@
       },
       {
         "title": "电话会议",
-        "icon": "ic_launcher",
+        "icon": "function_icon_call",
         "shadow_drawable": "shadow_main_39b1b7",
         "card_type": "0",
         "startColor": "#FFFF0000",
@@ -168,8 +163,8 @@
         "content": "点击Card后的去向"
       },
       {
-        "title": "视频会议",
-        "icon": "ic_launcher",
+        "title": "更多内容",
+        "icon": "work_main_ic_add",
         "shadow_drawable": "shadow_main_39b1b7",
         "card_type": "0",
         "startColor": "#FFFF0000",
@@ -182,7 +177,7 @@
   "row02": [
     {
       "title": "OA站点",
-      "icon": "ic_launcher",
+      "icon": "function_icon_create_org",
       "shadow_drawable": "shadow_main_39b1b7",
       "card_type": "0",
       "startColor": "#FFFF0000",
@@ -192,7 +187,7 @@
     },
     {
       "title": "考勤通知",
-      "icon": "ic_launcher",
+      "icon": "function_icon_cmail",
       "shadow_drawable": "shadow_main_39b1b7",
       "card_type": "0",
       "startColor": "#FFFF0000",
