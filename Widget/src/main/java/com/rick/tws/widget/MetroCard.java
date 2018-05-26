@@ -13,13 +13,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.rick.tws.Model.MetroCardStruct;
+
 public class MetroCard extends RelativeLayout {
     private static final String TAG = "MetroCard";
 
     private int mCardType = 0;
 
-    private int mContentType = 0;
-    private String mContent;
+    private int mActionType = 0;
+    private String mAction;
 
     private ImageView mBackgroundImage;
     private ImageView mIcon = null;
@@ -108,16 +110,22 @@ public class MetroCard extends RelativeLayout {
         }
     }
 
-    public void setCardContent(CharSequence title, final int iconRes, final int shadowRes, @ColorInt int[] bgGradientColors) {
+    public void setCardContent(int cardType, CharSequence title, final int iconRes, final int shadowRes, @ColorInt int[] bgGradientColors, int actionType, String action) {
         sureWidget();
         Log.i(TAG, "title=" + title);
+
+        mCardType = cardType;
+
         setBackgroundResource(shadowRes);
         mTitle.setText(title);
         mIcon.setImageResource(iconRes);
         setCardGradientColor(bgGradientColors);
+
+        mActionType = actionType;
+        mAction = action;
     }
 
-    public void setCardContent(int cardType, String title, String iconName, String shadowResName, int[] colors, int cardContentType, String cardContent) {
+    public void setCardContent(int cardType, String title, String iconName, String shadowResName, int[] colors, int actionType, String action) {
         sureWidget();
         Log.i(TAG, "title=" + title);
 
@@ -129,8 +137,8 @@ public class MetroCard extends RelativeLayout {
         if (null != colors) {
             setCardGradientColor(colors);
         }
-        mContentType = cardContentType;
-        mContent = cardContent;
+        mActionType = actionType;
+        mAction = action;
     }
 
     public void setCardGradientColor(final int[] colors) {
@@ -184,11 +192,14 @@ public class MetroCard extends RelativeLayout {
         return mTitle.getText();
     }
 
-    public int getContentType() {
-        return mContentType;
+    public int getActionType() {
+        return mActionType;
     }
 
-    public String getContent() {
-        return mContent;
+    public String getAction() {
+        return mAction;
+    }
+
+    public void init(MetroCardStruct cardStruct) {
     }
 }

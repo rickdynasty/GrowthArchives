@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/main_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
@@ -21,7 +22,7 @@
         android:fadingEdge="vertical"
         android:scrollbars="vertical">
 
-        <com.rick.tws.widget.MetroUI
+        <com.rick.tws.widget.SimpleMetroUI
             android:id="@+id/work_main_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

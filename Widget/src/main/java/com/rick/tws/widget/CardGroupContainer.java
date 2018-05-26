@@ -8,9 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.rick.tws.Model.MetroArea;
+import com.rick.tws.Model.MetroGroupStruct;
+import com.rick.tws.Model.MetroLinearStruct;
+
 public class CardGroupContainer extends LinearLayout {
     private int mGroupId = 0;
     private TextView mTileTv;
+    private Context mContext;
 
     public CardGroupContainer(Context context) {
         this(context, null);
@@ -26,6 +31,7 @@ public class CardGroupContainer extends LinearLayout {
 
     public CardGroupContainer(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        mContext = context;
 
         //ver1.0只支持VERTICAL
         setOrientation(LinearLayout.VERTICAL);
@@ -39,6 +45,24 @@ public class CardGroupContainer extends LinearLayout {
         tvParams.setMargins(leftMargin, topMargin, rightMargin, buttonMargin);
         addView(mTileTv, tvParams);
         mTileTv.setBackgroundColor(0xFFE8E8E8);
+    }
+
+    public void init(MetroGroupStruct groupStruct) {
+        if (null == groupStruct) {
+            throw new IllegalArgumentException("groupStruct cannot be empty!");
+        }
+
+        setGroupName(groupStruct.getName());
+        setGroupId(groupStruct.getID());
+        for (MetroArea linearStruct : groupStruct.linearStructs) {
+            if (linearStruct instanceof MetroLinearStruct) {
+                CardLinearContainer linearCard = new CardLinearContainer(mContext);
+                linearCard.init((MetroLinearStruct) linearStruct);
+                addOneLinearCard(linearCard);
+            } else {
+                // Error type
+            }
+        }
     }
 
     public void setGroupId(int groupId) {

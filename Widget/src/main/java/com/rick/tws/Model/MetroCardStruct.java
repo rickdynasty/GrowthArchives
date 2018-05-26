@@ -1,8 +1,11 @@
-package com.rick.tws.widget;
+package com.rick.tws.Model;
 
 import android.graphics.Color;
 
 public class MetroCardStruct {
+
+    public static final String METRO_CARDS_PREFIX = "cards";
+
     public static final String CARD_TITLE = "title";
     public static final String CARD_ICON = "icon";
     public static final String CARD_SHADOW_DRAWABLE = "shadow_drawable";
@@ -10,20 +13,42 @@ public class MetroCardStruct {
     public static final String GRADIENT_START_COLOR = "startColor";
     public static final String GRADIENT_CENTER_COLOR = "centerColor";
     public static final String GRADIENT_END_COLOR = "endColor";
-    public static final String CARD_CONTENT_TYPE = "content_type";
-    public static final String CARD_CONTENT = "content";
+    public static final String CARD_ACTION_TYPE = "action_type";
+    public static final String CARD_ACTION = "action";
     public static final String CARD_WEIGHT = "weight";
+
+    public static final int INVALID_VALUE = -1;
 
     private String mTitle = "";
     private String mIcon = "";
+    private int mIconResId = INVALID_VALUE;
     private String mShadowResName = "";
+    private int mShadowResId = INVALID_VALUE;
     private int mCardType = 0;
-    private int mGradientStartColor = -1;
-    private int mGradientCenterColor = -1;
-    private int mGradientEndColor = -1;
-    private int mCardContentType = -1;
-    private String mCardContent = "";
-    private int mWeight = -1;
+    private int mGradientStartColor = INVALID_VALUE;
+    private int mGradientCenterColor = INVALID_VALUE;
+    private int mGradientEndColor = INVALID_VALUE;
+    private int mActionType = INVALID_VALUE;
+    private String mAction = "";
+    private int mWeight = INVALID_VALUE;
+
+    public MetroCardStruct() {
+
+    }
+
+    public MetroCardStruct(String title, int iconResId, int shadowResId, int cardType, int startColor,
+                           int centerColor, int endColor, int actionType, String action, int weight) {
+        setTitle(title);
+        setIconResId(iconResId);
+        setShadowResId(shadowResId);
+        setCardType(cardType);
+        setGradientStartColor(startColor);
+        setGradientCenterColor(centerColor);
+        setGradientEndColor(endColor);
+        setActionType(actionType);
+        setAction(action);
+        setWeight(weight);
+    }
 
     @Override
     public String toString() {
@@ -34,8 +59,8 @@ public class MetroCardStruct {
                 + " \\n" + mGradientStartColor
                 + " \\n" + mGradientCenterColor
                 + " \\n" + mGradientEndColor
-                + " \\n" + mCardContentType
-                + " \\n" + mCardContent
+                + " \\n" + mActionType
+                + " \\n" + mAction
                 + " \\n" + mWeight + "]";
     }
 
@@ -55,12 +80,20 @@ public class MetroCardStruct {
         this.mIcon = iconRes;
     }
 
+    public void setIconResId(int iconResId) {
+        this.mIconResId = iconResId;
+    }
+
     public String getShadowResName() {
         return mShadowResName;
     }
 
     public void setShadowResName(String shadowDrawableResName) {
         this.mShadowResName = shadowDrawableResName;
+    }
+
+    public void setShadowResId(int shadowResId) {
+        this.mShadowResId = shadowResId;
     }
 
     public int getCardType() {
@@ -95,20 +128,20 @@ public class MetroCardStruct {
         this.mGradientEndColor = gradientEndColor;
     }
 
-    public int getCardContentType() {
-        return mCardContentType;
+    public int getActionType() {
+        return mActionType;
     }
 
-    public void setCardContentType(int cardContentType) {
-        this.mCardContentType = cardContentType;
+    public void setActionType(int actionType) {
+        this.mActionType = actionType;
     }
 
-    public String getCardContent() {
-        return mCardContent;
+    public String getAction() {
+        return mAction;
     }
 
-    public void setCardContent(String cardContent) {
-        this.mCardContent = cardContent;
+    public void setAction(String action) {
+        this.mAction = action;
     }
 
     public int getWeight() {
@@ -142,11 +175,11 @@ public class MetroCardStruct {
             case GRADIENT_END_COLOR:
                 setGradientEndColor(Color.parseColor(value.toLowerCase()));
                 break;
-            case CARD_CONTENT_TYPE:
-                setCardContentType(Integer.parseInt(value));
+            case CARD_ACTION_TYPE:
+                setActionType(Integer.parseInt(value));
                 break;
-            case CARD_CONTENT:
-                setCardContent(value);
+            case CARD_ACTION:
+                setAction(value);
                 break;
             case CARD_WEIGHT:
                 setWeight(Integer.parseInt(value));
@@ -155,14 +188,14 @@ public class MetroCardStruct {
     }
 
     public boolean gradientEffective() {
-        return -1 != mGradientStartColor && -1 != mGradientEndColor;
+        return INVALID_VALUE != mGradientStartColor && INVALID_VALUE != mGradientEndColor;
     }
 
     public boolean gradientCenterEffective() {
-        return -1 != mGradientStartColor && -1 != mGradientEndColor && -1 != mGradientCenterColor;
+        return INVALID_VALUE != mGradientStartColor && INVALID_VALUE != mGradientEndColor && INVALID_VALUE != mGradientCenterColor;
     }
 
     public boolean weightEffective() {
-        return -1 < mWeight;
+        return INVALID_VALUE < mWeight;
     }
 }

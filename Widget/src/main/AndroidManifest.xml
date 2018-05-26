@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.rick.tws.MainActivity">
+        <activity android:name="com.rick.tws.View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

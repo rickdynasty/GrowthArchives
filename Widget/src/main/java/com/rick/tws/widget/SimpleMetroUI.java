@@ -8,24 +8,24 @@ import android.widget.LinearLayout;
 import android.widget.Space;
 
 /**
- *
+ * 简单的MetroUI
  */
-public class MetroUI extends LinearLayout {
+public class SimpleMetroUI extends LinearLayout {
     private Context mContext;
 
-    public MetroUI(Context context) {
+    public SimpleMetroUI(Context context) {
         this(context, null);
     }
 
-    public MetroUI(Context context, @Nullable AttributeSet attrs) {
+    public SimpleMetroUI(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MetroUI(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SimpleMetroUI(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    public MetroUI(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SimpleMetroUI(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         mContext = context;
 
