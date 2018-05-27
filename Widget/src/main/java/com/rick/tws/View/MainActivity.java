@@ -49,8 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPresenter = new JsonPresenterImpl(this);
         mTv.setText("自定义MetroUI内容");
         mPresenter.loadJsonFromAssets(this, "metro_ui_content.json");
-        mTv.setClickable(true);
-        mTv.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.main_action).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, SecondActivity.class));
