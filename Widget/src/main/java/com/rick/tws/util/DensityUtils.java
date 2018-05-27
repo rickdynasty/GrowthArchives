@@ -1,4 +1,4 @@
-package com.rick.tws.utils;
+package com.rick.tws.util;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -6,7 +6,7 @@ import android.util.DisplayMetrics;
 /**
  * Used 尺寸转换工具类（全）
  */
-public class DensityUtil {
+public class DensityUtils {
     public static float RATIO = 0.95F;//缩放比例值
 
     /**

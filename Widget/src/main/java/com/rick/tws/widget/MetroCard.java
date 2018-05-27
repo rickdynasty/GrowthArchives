@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -201,5 +202,39 @@ public class MetroCard extends RelativeLayout {
     }
 
     public void init(MetroCardStruct cardStruct) {
+        if (null == cardStruct) {
+            throw new IllegalArgumentException("cardStruct cannot be empty!");
+        }
+
+        sureWidget();
+        Log.i(TAG, "title=" + cardStruct.getTitle());
+
+        mCardType = cardStruct.getCardType();
+
+        if (!TextUtils.isEmpty(cardStruct.getShadowResName())) {
+            setBackgroundResource(getResources().getIdentifier(cardStruct.getShadowResName(), "drawable", getContext().getApplicationInfo().packageName));
+        }
+
+        mTitle.setText(cardStruct.getTitle());
+        if (!TextUtils.isEmpty(cardStruct.getIconName())) {
+            mIcon.setImageResource(getResources().getIdentifier(cardStruct.getIconName(), "drawable", getContext().getApplicationInfo().packageName));
+        }
+
+        cardStruct.checkGradientColor();
+        int[] colors = null;
+        if (cardStruct.gradientCenterEffective()) {
+            colors = new int[]{cardStruct.getGradientStartColor(), cardStruct.getGradientCenterColor(), cardStruct.getGradientEndColor()};
+        } else if (cardStruct.gradientEffective()) {
+            colors = new int[]{cardStruct.getGradientStartColor(), cardStruct.getGradientEndColor()};
+        } else if (cardStruct.bkColorEffective()) {
+            colors = new int[]{cardStruct.getGradientStartColor()};
+        }
+
+        if (null != colors) {
+            setCardGradientColor(colors);
+        }
+
+        mActionType = cardStruct.getActionType();
+        mAction = cardStruct.getAction();
     }
 }

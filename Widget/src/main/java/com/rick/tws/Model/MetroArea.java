@@ -1,23 +1,23 @@
 package com.rick.tws.Model;
 
 public abstract class MetroArea {
-    protected String mName;
-    protected int mID;
+    protected String name;
+    protected int id;
 
     public void setName(String name) {
-        this.mName = name;
+        this.name = name;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setID(int id) {
-        this.mID = id;
+        this.id = id;
     }
 
     public int getID() {
-        return mID;
+        return id;
     }
 
 }

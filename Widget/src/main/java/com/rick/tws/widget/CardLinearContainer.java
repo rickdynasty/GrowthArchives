@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 
 import com.rick.tws.Model.MetroCardStruct;
 import com.rick.tws.Model.MetroLinearStruct;
-import com.rick.tws.utils.DensityUtil;
+import com.rick.tws.util.DensityUtils;
 
 public class CardLinearContainer extends LinearLayout {
     private final int mDefaultHeight;
@@ -43,7 +43,7 @@ public class CardLinearContainer extends LinearLayout {
 
         //如果设置了行高，在这里处理
         if (0 < linearStruct.getHeight()) {
-            final int height = DensityUtil.dip2px(mContext, linearStruct.getHeight());
+            final int height = DensityUtils.dip2px(mContext, linearStruct.getHeight());
             LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, height);
             setLayoutParams(lp);
         }

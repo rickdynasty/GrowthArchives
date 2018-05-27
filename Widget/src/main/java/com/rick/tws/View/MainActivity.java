@@ -1,6 +1,7 @@
 package com.rick.tws.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +16,8 @@ import com.rick.tws.Model.MetroGroupStruct;
 import com.rick.tws.Model.MetroLinearStruct;
 import com.rick.tws.Presenter.BasePresenter;
 import com.rick.tws.Presenter.JsonPresenterImpl;
-import com.rick.tws.utils.DensityUtil;
+import com.rick.tws.util.DensityUtils;
+import com.rick.tws.util.FileUtils;
 import com.rick.tws.widget.CardGroupContainer;
 import com.rick.tws.widget.CardLinearContainer;
 import com.rick.tws.widget.MetroCard;
@@ -47,6 +49,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPresenter = new JsonPresenterImpl(this);
         mTv.setText("自定义MetroUI内容");
         mPresenter.loadJsonFromAssets(this, "metro_ui_content.json");
+        mTv.setClickable(true);
+        mTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SecondActivity.class));
+            }
+        });
     }
 
     @Override
@@ -96,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         CardGroupContainer groupContainer = new CardGroupContainer(MainActivity.this);
                         groupContainer.init((MetroGroupStruct) metroArea);
                         mMainArea.addOneGroupCard(groupContainer);
-                        mMainArea.addEndSpace(DensityUtil.dip2px(MainActivity.this, 15));
+                        mMainArea.addEndSpace(DensityUtils.dip2px(MainActivity.this, 15));
                     } else if (metroArea instanceof MetroLinearStruct) {    //Row
                         //注意这里构建CardLinearContainer的时候传入的上下文MainActivity - 实现了OnClickListener
                         CardLinearContainer linearContainer = new CardLinearContainer(MainActivity.this);
@@ -108,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 //最后在末尾添加一段空白
-                mMainArea.addEndSpace(DensityUtil.dip2px(MainActivity.this, 15));
+                mMainArea.addEndSpace(DensityUtils.dip2px(MainActivity.this, 15));
             }
         });
     }

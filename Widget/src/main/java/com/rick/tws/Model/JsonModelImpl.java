@@ -1,17 +1,15 @@
 package com.rick.tws.Model;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.util.Log;
+
+import com.rick.tws.util.FileUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,7 +30,7 @@ public class JsonModelImpl implements BaseJsonModel {
             public void run() {
                 try {
                     //从json文件中读取配置信息
-                    JSONObject jsonObject = new JSONObject(getJsonFromFile(jsonFilePath));
+                    JSONObject jsonObject = new JSONObject(FileUtils.getJsonFromFile(jsonFilePath));
 
                     callback.success(dillJSONObject(jsonObject));
                 } catch (JSONException e) {
@@ -56,7 +54,7 @@ public class JsonModelImpl implements BaseJsonModel {
             public void run() {
                 try {
                     //从json文件中读取配置信息
-                    JSONObject jsonObject = new JSONObject(getJsonFromAssets(context, jsonFileName));
+                    JSONObject jsonObject = new JSONObject(FileUtils.getJsonFromAssets(context, jsonFileName));
 
                     callback.success(dillJSONObject(jsonObject));
                 } catch (JSONException e) {
@@ -66,30 +64,6 @@ public class JsonModelImpl implements BaseJsonModel {
                 }
             }
         }.start();
-    }
-
-    private String getJsonFromAssets(Context context, String fileName) throws IOException {
-        //获取assets资源管理器
-        AssetManager assetManager = context.getAssets();
-
-        return getJsonFromStream(new InputStreamReader(assetManager.open(fileName)));
-    }
-
-    private String getJsonFromFile(String file) throws IOException {
-        return getJsonFromStream(new InputStreamReader(new FileInputStream(file)));
-    }
-
-    private String getJsonFromStream(final InputStreamReader stream) throws IOException {
-        //将json数据变成字符串
-        StringBuilder stringBuilder = new StringBuilder();
-        //通过管理器打开文件并读取
-        BufferedReader bf = new BufferedReader(stream);
-        String line;
-        while ((line = bf.readLine()) != null) {
-            stringBuilder.append(line);
-        }
-
-        return stringBuilder.toString();
     }
 
     // json root 入口
