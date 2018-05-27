@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rick.tws.widget.NavigationUI;
 import com.rick.tws.widget.R;
 
 import java.util.ArrayList;
@@ -40,8 +41,8 @@ public class NavigationCardAdapter extends NavigationCardBaseAdapter<NavigationH
     @Override
     protected int getItemCountForSection(int section) {
         int count = groupDataList.get(section).cardList.size();
-        if (count >= 8 && !mBooleanMap.get(section)) {
-            count = 8;
+        if (!mBooleanMap.get(section) && count >= NavigationUI.GRID_SPANCOUNT * NavigationUI.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT) {
+            count = NavigationUI.GRID_SPANCOUNT * NavigationUI.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT;
         }
 
         return isEmpty(groupDataList.get(section).cardList) ? 0 : count;

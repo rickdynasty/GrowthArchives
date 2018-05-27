@@ -6,7 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 public class NavigationUI extends RecyclerView {
-    public static final int GRID_SPANCOUNT = 4;
+    //列【即一行显示的个数】
+    public static final int GRID_SPANCOUNT = 3;
+    // 默认收起显示的行数
+    public static final int GRID_GROUP_OFF_MULTIPLE_SPANCOUNT = 1;
+
     public NavigationUI(Context context) {
         this(context, null);
     }
