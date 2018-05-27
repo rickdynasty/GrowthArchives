@@ -1,8 +1,8 @@
 {
   "groupDataList": [
     {
-      "name": "热门品牌",
-      "id": "20",
+      "name": "公务",
+      "id": "1001",
       "cardList": [
         {
           "title": "会议管理",
@@ -98,8 +98,8 @@
       ]
     },
     {
-      "name": "商业区",
-      "id": "4",
+      "name": "钉钉",
+      "id": "1002",
       "cardList": [
         {
           "title": "日志",
@@ -169,6 +169,100 @@
           "shadow_drawable": "shadow_main_39b1b7",
           "card_type": 1,
           "startColor": "#FFFF0000",
+          "endColor": "#FFFFFF00",
+          "action_type": "0",
+          "action": "点击Card后的去向"
+        },
+        {
+          "title": "考勤通知",
+          "icon": "function_icon_cmail",
+          "shadow_drawable": "shadow_main_39b1b7",
+          "card_type": 1,
+          "startColor": "#FFFF0000",
+          "centerColor": "#FF00FF00",
+          "endColor": "#FFFFFF00",
+          "action_type": "0",
+          "action": "点击Card后的去向"
+        },
+        {
+          "title": "考勤通知",
+          "icon": "function_icon_cmail",
+          "shadow_drawable": "shadow_main_39b1b7",
+          "card_type": 1,
+          "startColor": "#FFFF0000",
+          "centerColor": "#FF00FF00",
+          "endColor": "#FFFFFF00",
+          "action_type": "0",
+          "action": "点击Card后的去向"
+        },
+        {
+          "title": "考勤通知",
+          "icon": "function_icon_cmail",
+          "shadow_drawable": "shadow_main_39b1b7",
+          "card_type": 1,
+          "startColor": "#FFFF0000",
+          "centerColor": "#FF00FF00",
+          "endColor": "#FFFFFF00",
+          "action_type": "0",
+          "action": "点击Card后的去向"
+        },
+        {
+          "title": "考勤通知",
+          "icon": "function_icon_cmail",
+          "shadow_drawable": "shadow_main_39b1b7",
+          "card_type": 1,
+          "startColor": "#FFFF0000",
+          "centerColor": "#FF00FF00",
+          "endColor": "#FFFFFF00",
+          "action_type": "0",
+          "action": "点击Card后的去向"
+        },
+        {
+          "title": "考勤通知",
+          "icon": "function_icon_cmail",
+          "shadow_drawable": "shadow_main_39b1b7",
+          "card_type": 1,
+          "startColor": "#FFFF0000",
+          "centerColor": "#FF00FF00",
+          "endColor": "#FFFFFF00",
+          "action_type": "0",
+          "action": "点击Card后的去向"
+        },
+        {
+          "title": "考勤通知",
+          "icon": "function_icon_cmail",
+          "shadow_drawable": "shadow_main_39b1b7",
+          "card_type": 1,
+          "startColor": "#FFFF0000",
+          "centerColor": "#FF00FF00",
+          "endColor": "#FFFFFF00",
+          "action_type": "0",
+          "action": "点击Card后的去向"
+        }
+      ]
+    },
+    {
+      "name": "考勤",
+      "id": "1003",
+      "cardList": [
+        {
+          "title": "考勤通知",
+          "icon": "function_icon_cmail",
+          "shadow_drawable": "shadow_main_39b1b7",
+          "card_type": 1,
+          "startColor": "#FFFF0000",
+          "centerColor": "#FF00FF00",
+          "endColor": "#FFFFFF00",
+          "action_type": "0",
+          "action": "点击Card后的去向"
+        },
+        {
+          "title": "考勤通知",
+          "icon": "function_icon_cmail",
+          "shadow_drawable": "shadow_main_39b1b7",
+          "card_type": 1,
+          "startColor": "#FFFF0000",
+          "centerColor": "#FF00FF00",
           "endColor": "#FFFFFF00",
           "action_type": "0",
           "action": "点击Card后的去向"
