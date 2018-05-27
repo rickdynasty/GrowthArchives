@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.rick.tws.widget.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NavigationCardAdapter extends NavigationCardBaseAdapter<NavigationHeaderHolder, NavigationCardHolder, RecyclerView.ViewHolder> {
     public ArrayList<NavigationGroupData> groupDataList;
@@ -33,12 +34,17 @@ public class NavigationCardAdapter extends NavigationCardBaseAdapter<NavigationH
 
     @Override
     protected int getSectionCount() {
-        return (null == groupDataList || groupDataList.isEmpty()) ? 0 : groupDataList.size();
+        return isEmpty(groupDataList) ? 0 : groupDataList.size();
     }
 
     @Override
     protected int getItemCountForSection(int section) {
-        return 0;
+        int count = groupDataList.get(section).cardList.size();
+        if (count >= 8 && !mBooleanMap.get(section)) {
+            count = 8;
+        }
+
+        return isEmpty(groupDataList.get(section).cardList) ? 0 : count;
     }
 
     @Override
@@ -86,5 +92,9 @@ public class NavigationCardAdapter extends NavigationCardBaseAdapter<NavigationH
     @Override
     protected void onBindItemViewHolder(NavigationCardHolder holder, int section, int position) {
         holder.card.init(groupDataList.get(section).cardList.get(position));
+    }
+
+    private static <D> boolean isEmpty(List<D> list) {
+        return list == null || list.isEmpty();
     }
 }

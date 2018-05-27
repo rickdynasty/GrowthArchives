@@ -10,6 +10,7 @@ import com.rick.tws.Model.NavigationCardAdapter;
 import com.rick.tws.Model.NavigationJsonData;
 import com.rick.tws.Model.NavigationJsonModel;
 import com.rick.tws.Model.NavigationLoadJsonCallback;
+import com.rick.tws.Model.NavigationSpanSizeLookup;
 import com.rick.tws.widget.NavigationUI;
 import com.rick.tws.widget.R;
 
@@ -32,6 +33,8 @@ public class SecondActivity extends Activity implements NavigationLoadJsonCallba
         mNavigationUI = findViewById(R.id.navigation_area);
         mAdapter = new NavigationCardAdapter(this);
         GridLayoutManager manager = new GridLayoutManager(this, NavigationUI.GRID_SPANCOUNT);
+        //设置header
+        manager.setSpanSizeLookup(new NavigationSpanSizeLookup(mAdapter,manager));
 
         mNavigationUI.setLayoutManager(manager);
         mNavigationUI.setAdapter(mAdapter);
