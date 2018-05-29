@@ -1,9 +1,9 @@
 {
-  "groupDataList": [
+  "workspaceGroups": [
     {
-      "name": "公务",
-      "id": "1001",
-      "cardList": [
+      "groupName": "公务",
+      "groupId": "1001",
+      "cellItemList": [
         {
           "title": "会议管理",
           "icon": "work_main_ic_hygl",
@@ -98,9 +98,9 @@
       ]
     },
     {
-      "name": "钉钉",
-      "id": "1002",
-      "cardList": [
+      "groupName": "钉钉",
+      "groupId": "1002",
+      "cellItemList": [
         {
           "title": "日志",
           "icon": "function_icon_team_apply",
@@ -238,9 +238,9 @@
       ]
     },
     {
-      "name": "考勤",
-      "id": "1003",
-      "cardList": [
+      "groupName": "考勤",
+      "groupId": "1003",
+      "cellItemList": [
         {
           "title": "考勤通知",
           "icon": "function_icon_cmail",

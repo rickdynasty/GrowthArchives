@@ -14,7 +14,7 @@ public class WorkspaceActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_workspace);
         setTitle("WorkspaceActivity");
 
         Workspace workspace = findViewById(R.id.navigation_area);

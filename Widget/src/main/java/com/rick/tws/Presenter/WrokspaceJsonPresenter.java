@@ -37,7 +37,7 @@ public class WrokspaceJsonPresenter implements BasePresenter, BaseJsonModel.Navi
             throw new RuntimeException("The \"null == mView\" scenario is theoretically absent~!");
         }
 
-        mView.initWorkspace(result.groupDataList);
+        mView.initWorkspace(result.workspaceGroups);
     }
 
     @Override

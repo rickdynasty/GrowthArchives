@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 import com.rick.tws.Model.CellLayoutAdapter;
-import com.rick.tws.Model.WorkspaceContent;
+import com.rick.tws.Model.WorkspaceGroupContent;
 import com.rick.tws.Model.WorkspaceSpanSizeLookup;
 import com.rick.tws.Presenter.WrokspaceJsonPresenter;
 import com.rick.tws.View.IWorkspaceUI;
@@ -46,7 +46,7 @@ public class Workspace extends RecyclerView implements IWorkspaceUI {
     }
 
     @Override
-    public void initWorkspace(ArrayList<WorkspaceContent> groupDataList) {
+    public void initWorkspace(ArrayList<WorkspaceGroupContent> groupDataList) {
         mAdapter.setData(groupDataList);
     }
 

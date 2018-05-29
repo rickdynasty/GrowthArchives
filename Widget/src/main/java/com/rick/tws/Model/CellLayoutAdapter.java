@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder, RecyclerView.ViewHolder> {
-    public ArrayList<WorkspaceContent> groupDataList;
+    public ArrayList<WorkspaceGroupContent> groupDataList;
     private String mSwith_off = "收起";
     private String mSwith_on = "展开";
 
@@ -30,7 +30,7 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
         mBooleanMap = new SparseBooleanArray();
     }
 
-    public void setData(ArrayList<WorkspaceContent> groupDataList) {
+    public void setData(ArrayList<WorkspaceGroupContent> groupDataList) {
         this.groupDataList = groupDataList;
         notifyDataSetChanged();
     }
@@ -57,7 +57,7 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
 
     @Override
     protected HeaderHolder onCreateSectionHeaderViewHolder(ViewGroup parent, int viewType) {
-        return new HeaderHolder(mInflater.inflate(R.layout.navigation_header_item, parent, false));
+        return new HeaderHolder(mInflater.inflate(R.layout.workspace_header_item, parent, false));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
 
     @Override
     protected CellItemHolder onCreateItemViewHolder(ViewGroup parent, int viewType) {
-        return new CellItemHolder(mInflater.inflate(R.layout.navigation_card_item, parent, false));
+        return new CellItemHolder(mInflater.inflate(R.layout.workspace_cell_item, parent, false));
     }
 
     @Override
