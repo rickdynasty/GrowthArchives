@@ -24,24 +24,27 @@ public class CellItemStruct {
 
     private String title = "";
     private String icon = "";
+    private int card_type = 0;
+
     private int iconResId = INVALID_VALUE;
     private String shadow_drawable = "";
     private int shadowResId = INVALID_VALUE;
-    private int card_type = 0;
+
     private int gradientStartColor = INVALID_VALUE;
     private int gradientCenterColor = INVALID_VALUE;
     private int gradientEndColor = INVALID_VALUE;
 
+    //for json config
     private String startColor;
     private String centerColor;
     private String endColor;
 
     private int action_type = INVALID_VALUE;
     private String action = "";
+
     private int weight = INVALID_VALUE;
 
     public CellItemStruct() {
-
     }
 
     public CellItemStruct(String title, int iconResId, int shadowResId, int cardType, int startColor,
