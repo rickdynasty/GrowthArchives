@@ -1,4 +1,4 @@
 <com.rick.tws.widget.CellItemView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/metro_card"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/cell_item_with" />
+    android:layout_height="@dimen/cell_item_height" />

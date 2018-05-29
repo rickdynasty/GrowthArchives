@@ -43,6 +43,15 @@ public class CellItemStruct {
     private String action = "";
 
     private int weight = INVALID_VALUE;
+    protected String textColor;
+    protected int textSize;
+    @Deprecated
+    protected String background;
+    protected int backgroundColor = Color.WHITE;
+    public int item_width = INVALID_VALUE;;
+    public int item_height = INVALID_VALUE;;
+    public int icon_width = INVALID_VALUE;;
+    public int icon_height = INVALID_VALUE;;
 
     public CellItemStruct() {
     }

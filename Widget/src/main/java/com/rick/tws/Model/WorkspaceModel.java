@@ -30,8 +30,8 @@ public class WorkspaceModel implements BaseJsonModel {
         try {
             String content = FileUtils.getJsonFromAssets(context, jsonFileName);
             Gson gson = new Gson();
-            WorkspaceData navigationData = gson.fromJson(content, WorkspaceData.class);
-            callback.success(navigationData);
+            WorkspaceData workspaceData = gson.fromJson(content, WorkspaceData.class);
+            callback.success(workspaceData);
         } catch (IOException e) {
             callback.failure("loadJsonFromAssets:" + jsonFileName, e);
         } catch (JsonSyntaxException e) {

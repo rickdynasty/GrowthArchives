@@ -3,6 +3,17 @@
     {
       "groupName": "公务",
       "groupId": "1001",
+      "header_height": "114",
+      "gicon": "GroupiconResName",
+      "header_textColor": "#FF0000FF",
+      "header_textSize": "14",
+      "header_boldText":"true",
+      "isShrink": "false",
+      "header_background": "#FFFFFFFF",
+      "item_width": "114",
+      "item_height": "114",
+      "icon_width": "33",
+      "icon_height": "33",
       "cellItemList": [
         {
           "title": "会议管理",
@@ -12,7 +23,14 @@
           "startColor": "#FF39B1B7",
           "endColor": "#FF1EDE81",
           "action_type": "0",
-          "action": "点击Card后的去向"
+          "action": "点击Card后的去向",
+          "textColor": "#FF000000",
+          "textSize": "13",
+          "background": "#FFFFFFFF",
+          "item_width": "114",
+          "item_height": "114",
+          "icon_width": "33",
+          "icon_height": "33"
         },
         {
           "title": "日程",
@@ -33,7 +51,59 @@
           "endColor": "#FFFF9C68",
           "action_type": "0",
           "action": "点击Card后的去向"
+        }
+      ]
+    },
+    {
+      "groupName": "钉钉",
+      "groupId": "1002",
+      "header_height": "114",
+      "gicon": "GroupiconResName",
+      "header_textColor": "#FF000000",
+      "header_textSize": "14",
+      "isShrink": "true",
+      "header_background": "#FFFFFFFF",
+      "item_width": "114",
+      "item_height": "114",
+      "icon_width": "33",
+      "icon_height": "33",
+      "cellItemList": [
+        {
+          "title": "日志",
+          "icon": "function_icon_team_apply",
+          "shadow_drawable": "shadow_main_39b1b7",
+          "card_type": "0",
+          "startColor": "#FF39B1B7",
+          "endColor": "#FF1EDE81",
+          "action_type": "0",
+          "action": "点击Card后的去向"
         },
+        {
+          "title": "公告",
+          "icon": "function_icon_attend_calendar",
+          "shadow_drawable": "shadow_main_39b1b7",
+          "card_type": "0",
+          "startColor": "#FFFF0000",
+          "endColor": "#FFFFFF00",
+          "action_type": "0",
+          "action": "点击Card后的去向"
+        }
+      ]
+    },
+    {
+      "groupName": "考勤",
+      "groupId": "1003",
+      "header_height": "114",
+      "gicon": "GroupiconResName",
+      "header_textColor": "#FF000000",
+      "header_textSize": "14",
+      "isShrink": "true",
+      "header_background": "#FFFFFFFF",
+      "item_width": "114",
+      "item_height": "114",
+      "icon_width": "33",
+      "icon_height": "33",
+      "cellItemList": [
         {
           "title": "归档",
           "icon": "work_main_collect_icon",
@@ -71,118 +141,6 @@
           "card_type": "0",
           "startColor": "#FFFF0000",
           "endColor": "#FFFFFF00",
-          "action_type": "0",
-          "action": "点击Card后的去向"
-        }
-      ]
-    },
-    {
-      "groupName": "钉钉",
-      "groupId": "1002",
-      "cellItemList": [
-        {
-          "title": "日志",
-          "icon": "function_icon_team_apply",
-          "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": "0",
-          "startColor": "#FF39B1B7",
-          "endColor": "#FF1EDE81",
-          "action_type": "0",
-          "action": "点击Card后的去向"
-        },
-        {
-          "title": "公告",
-          "icon": "function_icon_attend_calendar",
-          "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": "0",
-          "startColor": "#FFFF0000",
-          "endColor": "#FFFFFF00",
-          "action_type": "0",
-          "action": "点击Card后的去向"
-        }
-      ]
-    },
-    {
-      "groupName": "考勤",
-      "groupId": "1003",
-      "cellItemList": [
-        {
-          "title": "考勤通知",
-          "icon": "function_icon_cmail",
-          "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": 1,
-          "startColor": "#FF39B1B7",
-          "endColor": "#FF1EDE81",
-          "action_type": "0",
-          "action": "点击Card后的去向"
-        },
-        {
-          "title": "考勤通知",
-          "icon": "function_icon_cmail",
-          "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": 1,
-          "startColor": "#FF39B1B7",
-          "endColor": "#FF1EDE81",
-          "action_type": "0",
-          "action": "点击Card后的去向"
-        },
-        {
-          "title": "考勤通知",
-          "icon": "function_icon_cmail",
-          "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": 1,
-          "startColor": "#FF39B1B7",
-          "endColor": "#FF1EDE81",
-          "action_type": "0",
-          "action": "点击Card后的去向"
-        },
-        {
-          "title": "考勤通知",
-          "icon": "function_icon_cmail",
-          "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": 1,
-          "startColor": "#FF39B1B7",
-          "endColor": "#FF1EDE81",
-          "action_type": "0",
-          "action": "点击Card后的去向"
-        },
-        {
-          "title": "考勤通知",
-          "icon": "function_icon_cmail",
-          "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": 1,
-          "startColor": "#FF39B1B7",
-          "endColor": "#FF1EDE81",
-          "action_type": "0",
-          "action": "点击Card后的去向"
-        },
-        {
-          "title": "考勤通知",
-          "icon": "function_icon_cmail",
-          "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": 1,
-          "startColor": "#FF39B1B7",
-          "endColor": "#FF1EDE81",
-          "action_type": "0",
-          "action": "点击Card后的去向"
-        },
-        {
-          "title": "考勤通知",
-          "icon": "function_icon_cmail",
-          "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": 1,
-          "startColor": "#FF39B1B7",
-          "endColor": "#FF1EDE81",
-          "action_type": "0",
-          "action": "点击Card后的去向"
-        },
-        {
-          "title": "考勤通知",
-          "icon": "function_icon_cmail",
-          "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": 1,
-          "startColor": "#FF39B1B7",
-          "endColor": "#FF1EDE81",
           "action_type": "0",
           "action": "点击Card后的去向"
         }
