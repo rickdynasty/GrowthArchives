@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class FileUtils {
-
     public static String getJsonFromAssets(Context context, String fileName) throws IOException {
         //获取assets资源管理器
         AssetManager assetManager = context.getAssets();

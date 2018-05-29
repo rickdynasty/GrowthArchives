@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="card_linear_container_height">114dp</dimen>
-    <dimen name="metro_ui_margin_top">10dp</dimen>
-    <dimen name="metro_ui_margin_left">5dp</dimen>
-    <dimen name="metro_ui_margin_right">5dp</dimen>
+    <dimen name="cell_item_with">33dp</dimen>
+    <dimen name="cell_item_height">33dp</dimen>
 
+    <dimen name="cell_item_icon_margin_top_0">45dp</dimen>
+    <dimen name="cell_item_icon_margin_top_1">25dp</dimen>
 
-    <dimen name="metro_ui_card_with">33dp</dimen>
-    <dimen name="metro_ui_card_height">33dp</dimen>
-    <dimen name="card_icon_margin_top_0">45dp</dimen>
-    <dimen name="card_icon_margin_top_1">25dp</dimen>
-
-    <dimen name="card_title_margin_left_0">12dp</dimen>
-    <dimen name="card_title_margin_top_0">10dp</dimen>
-    <dimen name="card_title_margin_bottom_1">10dp</dimen>
+    <dimen name="cell_item_title_margin_left_0">12dp</dimen>
+    <dimen name="cell_item_title_margin_top_0">10dp</dimen>
+    <dimen name="cell_item_title_margin_bottom_1">10dp</dimen>
 </resources>

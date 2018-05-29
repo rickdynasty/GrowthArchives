@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.rick.tws.Model.CellItemStruct;
 
-public class MetroCard extends RelativeLayout {
-    private static final String TAG = "MetroCard";
+public class CellItemView extends RelativeLayout {
+    private static final String TAG = CellItemView.class.getSimpleName();
 
     private int mCardType = 0;
 
@@ -33,15 +33,15 @@ public class MetroCard extends RelativeLayout {
     private int mTextColor_focus = Color.WHITE;
     private GradientDrawable mGradientDrawable = null;
 
-    public MetroCard(Context context) {
+    public CellItemView(Context context) {
         this(context, null);
     }
 
-    public MetroCard(Context context, @Nullable AttributeSet attrs) {
+    public CellItemView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MetroCard(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CellItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
@@ -49,7 +49,7 @@ public class MetroCard extends RelativeLayout {
         mCardType = cardType;
     }
 
-    public MetroCard(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public CellItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -63,12 +63,12 @@ public class MetroCard extends RelativeLayout {
         if (null == mIcon) {
             mIcon = new ImageView(getContext());
             final Resources res = getResources();
-            LayoutParams lp = new LayoutParams(res.getDimensionPixelSize(R.dimen.metro_ui_card_with), res.getDimensionPixelSize(R.dimen.metro_ui_card_height));
+            LayoutParams lp = new LayoutParams(res.getDimensionPixelSize(R.dimen.cell_item_with), res.getDimensionPixelSize(R.dimen.cell_item_height));
             lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
             if (0 == mCardType) {
-                lp.topMargin = res.getDimensionPixelSize(R.dimen.card_icon_margin_top_0);
+                lp.topMargin = res.getDimensionPixelSize(R.dimen.cell_item_icon_margin_top_0);
             } else {
-                lp.topMargin = res.getDimensionPixelSize(R.dimen.card_icon_margin_top_1);
+                lp.topMargin = res.getDimensionPixelSize(R.dimen.cell_item_icon_margin_top_1);
             }
             addView(mIcon, lp);
         }
@@ -78,10 +78,10 @@ public class MetroCard extends RelativeLayout {
             final Resources res = getResources();
             LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             if (0 == mCardType) {
-                lp.leftMargin = res.getDimensionPixelSize(R.dimen.card_title_margin_left_0);
-                lp.topMargin = res.getDimensionPixelSize(R.dimen.card_title_margin_top_0);
+                lp.leftMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_left_0);
+                lp.topMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
             } else {
-                lp.bottomMargin = res.getDimensionPixelSize(R.dimen.card_title_margin_bottom_1);
+                lp.bottomMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_bottom_1);
                 lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
                 lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             }

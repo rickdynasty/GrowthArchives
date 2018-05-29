@@ -5,10 +5,10 @@ import android.graphics.Color;
 import android.view.View;
 
 import com.rick.tws.Model.CellItemStruct;
-import com.rick.tws.widget.MetroCard;
+import com.rick.tws.widget.CellItemView;
 import com.rick.tws.widget.R;
 
-public class MetroCardFactory {
+public class CellItemFactory {
     public static final int NOTIFY_CARD = 0;       //特别关注
     public static final int DATE_CARD = 1;          //我的日程
 
@@ -22,7 +22,7 @@ public class MetroCardFactory {
     public static final int OA_CARD = 7;                //OA站点
     public static final int ATTENDANCE_NOTICE = 8;      //考勤通知
 
-    public static CellItemStruct createMetroCardStruct(int type) {
+    public static CellItemStruct createCellItemStruct(int type) {
         String title = "unknow";
         int iconRes = R.drawable.ic_launcher;
         int shadowRes = R.drawable.ic_launcher;
@@ -109,16 +109,16 @@ public class MetroCardFactory {
         return new CellItemStruct(title, iconRes, shadowRes, cardType, startColor, centerColor, endColor, actionType, action, weight);
     }
 
-    public static MetroCard createMetroCard(Context context, CellItemStruct cardStruct) {
+    public static CellItemView createCellItemView(Context context, CellItemStruct cardStruct) {
         if (null == cardStruct) {
             return null;
         }
 
-        MetroCard metroCard = new MetroCard(context);
-        metroCard.setCardType(cardStruct.getCardType());
+        CellItemView itemView = new CellItemView(context);
+        itemView.setCardType(cardStruct.getCardType());
 
         if (cardStruct.gradientCenterEffective()) {
-            metroCard.setCardContent(
+            itemView.setCardContent(
                     cardStruct.getCardType(),
                     cardStruct.getTitle(),
                     cardStruct.getIconName(),
@@ -127,7 +127,7 @@ public class MetroCardFactory {
                     cardStruct.getActionType(),
                     cardStruct.getAction());
         } else if (cardStruct.gradientEffective()) {
-            metroCard.setCardContent(
+            itemView.setCardContent(
                     cardStruct.getCardType(),
                     cardStruct.getTitle(),
                     cardStruct.getIconName(),
@@ -136,7 +136,7 @@ public class MetroCardFactory {
                     cardStruct.getActionType(),
                     cardStruct.getAction());
         } else {
-            metroCard.setCardContent(
+            itemView.setCardContent(
                     cardStruct.getCardType(),
                     cardStruct.getTitle(),
                     cardStruct.getIconName(),
@@ -147,9 +147,9 @@ public class MetroCardFactory {
         }
 
         if (context instanceof View.OnClickListener) {
-            metroCard.setOnClickListener((View.OnClickListener) context);
+            itemView.setOnClickListener((View.OnClickListener) context);
         }
 
-        return metroCard;
+        return itemView;
     }
 }

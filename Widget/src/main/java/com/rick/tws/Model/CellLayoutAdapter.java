@@ -42,12 +42,12 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
 
     @Override
     protected int getItemCountForSection(int section) {
-        int count = groupDataList.get(section).cardList.size();
+        int count = groupDataList.get(section).cellItemList.size();
         if (!mBooleanMap.get(section) && count >= Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT) {
             count = Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT;
         }
 
-        return isEmpty(groupDataList.get(section).cardList) ? 0 : count;
+        return isEmpty(groupDataList.get(section).cellItemList) ? 0 : count;
     }
 
     @Override
@@ -94,7 +94,7 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
 
     @Override
     protected void onBindItemViewHolder(CellItemHolder holder, int section, int position) {
-        holder.card.init(groupDataList.get(section).cardList.get(position));
+        holder.card.init(groupDataList.get(section).cellItemList.get(position));
     }
 
     private static <D> boolean isEmpty(List<D> list) {

@@ -15,7 +15,7 @@ import com.rick.tws.View.IWorkspaceUI;
 
 import java.util.ArrayList;
 
-public class Workspace extends RecyclerView implements IWorkspaceUI {
+public class Workspace extends RecyclerView{
 
     private static final String TAG = Workspace.class.getSimpleName();
     protected Context mContext;
@@ -26,8 +26,6 @@ public class Workspace extends RecyclerView implements IWorkspaceUI {
     public static final int GRID_GROUP_OFF_MULTIPLE_SPANCOUNT = 1;
 
 
-    private WrokspaceJsonPresenter mPresenter;
-    private CellLayoutAdapter mAdapter;
 
     public Workspace(Context context) {
         this(context, null);
@@ -40,29 +38,5 @@ public class Workspace extends RecyclerView implements IWorkspaceUI {
     public Workspace(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
-
-        mPresenter = new WrokspaceJsonPresenter(this);
-        mAdapter = new CellLayoutAdapter(context);
-    }
-
-    @Override
-    public void initWorkspace(ArrayList<WorkspaceGroupContent> groupDataList) {
-        mAdapter.setData(groupDataList);
-    }
-
-    @Override
-    public void loadJsonfailure(String errorDes, Exception e) {
-        Log.e(TAG, errorDes, e);
-    }
-
-    public void initData() {
-        GridLayoutManager manager = new GridLayoutManager(mContext, GRID_SPANCOUNT);
-        //设置header
-        manager.setSpanSizeLookup(new WorkspaceSpanSizeLookup(mAdapter, manager));
-
-        setLayoutManager(manager);
-        setAdapter(mAdapter);
-
-        mPresenter.loadJsonFromAssets(mContext,"workspace.json");
     }
 }
