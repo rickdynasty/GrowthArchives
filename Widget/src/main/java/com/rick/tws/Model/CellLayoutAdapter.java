@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rick.tws.widget.NavigationUI;
+import com.rick.tws.widget.CellItemHolder;
+import com.rick.tws.widget.HeaderHolder;
+import com.rick.tws.widget.Workspace;
 import com.rick.tws.widget.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavigationCardAdapter extends NavigationCardBaseAdapter<NavigationHeaderHolder, NavigationCardHolder, RecyclerView.ViewHolder> {
-    public ArrayList<NavigationGroupData> groupDataList;
+public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder, RecyclerView.ViewHolder> {
+    public ArrayList<WorkspaceContent> groupDataList;
     private String mSwith_off = "收起";
     private String mSwith_on = "展开";
 
@@ -22,13 +24,13 @@ public class NavigationCardAdapter extends NavigationCardBaseAdapter<NavigationH
     private LayoutInflater mInflater;
     private SparseBooleanArray mBooleanMap;
 
-    public NavigationCardAdapter(Context context) {
+    public CellLayoutAdapter(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mBooleanMap = new SparseBooleanArray();
     }
 
-    public void setData(ArrayList<NavigationGroupData> groupDataList) {
+    public void setData(ArrayList<WorkspaceContent> groupDataList) {
         this.groupDataList = groupDataList;
         notifyDataSetChanged();
     }
@@ -41,8 +43,8 @@ public class NavigationCardAdapter extends NavigationCardBaseAdapter<NavigationH
     @Override
     protected int getItemCountForSection(int section) {
         int count = groupDataList.get(section).cardList.size();
-        if (!mBooleanMap.get(section) && count >= NavigationUI.GRID_SPANCOUNT * NavigationUI.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT) {
-            count = NavigationUI.GRID_SPANCOUNT * NavigationUI.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT;
+        if (!mBooleanMap.get(section) && count >= Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT) {
+            count = Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT;
         }
 
         return isEmpty(groupDataList.get(section).cardList) ? 0 : count;
@@ -54,8 +56,8 @@ public class NavigationCardAdapter extends NavigationCardBaseAdapter<NavigationH
     }
 
     @Override
-    protected NavigationHeaderHolder onCreateSectionHeaderViewHolder(ViewGroup parent, int viewType) {
-        return new NavigationHeaderHolder(mInflater.inflate(R.layout.navigation_header_item, parent, false));
+    protected HeaderHolder onCreateSectionHeaderViewHolder(ViewGroup parent, int viewType) {
+        return new HeaderHolder(mInflater.inflate(R.layout.navigation_header_item, parent, false));
     }
 
     @Override
@@ -64,12 +66,12 @@ public class NavigationCardAdapter extends NavigationCardBaseAdapter<NavigationH
     }
 
     @Override
-    protected NavigationCardHolder onCreateItemViewHolder(ViewGroup parent, int viewType) {
-        return new NavigationCardHolder(mInflater.inflate(R.layout.navigation_card_item, parent, false));
+    protected CellItemHolder onCreateItemViewHolder(ViewGroup parent, int viewType) {
+        return new CellItemHolder(mInflater.inflate(R.layout.navigation_card_item, parent, false));
     }
 
     @Override
-    protected void onBindSectionHeaderViewHolder(final NavigationHeaderHolder holder, final int section) {
+    protected void onBindSectionHeaderViewHolder(final HeaderHolder holder, final int section) {
         holder.openView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +93,7 @@ public class NavigationCardAdapter extends NavigationCardBaseAdapter<NavigationH
     }
 
     @Override
-    protected void onBindItemViewHolder(NavigationCardHolder holder, int section, int position) {
+    protected void onBindItemViewHolder(CellItemHolder holder, int section, int position) {
         holder.card.init(groupDataList.get(section).cardList.get(position));
     }
 

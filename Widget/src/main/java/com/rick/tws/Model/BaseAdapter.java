@@ -26,7 +26,7 @@ import android.view.ViewGroup;
  * @param <VH> Class extending RecyclerView.ViewHolder to hold and bind the items view
  * @param <F>  Class extending RecyclerView.ViewHolder to hold and bind the footer view
  */
-public abstract class NavigationCardBaseAdapter<H extends RecyclerView.ViewHolder,
+public abstract class BaseAdapter<H extends RecyclerView.ViewHolder,
         VH extends RecyclerView.ViewHolder,
         F extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -41,7 +41,7 @@ public abstract class NavigationCardBaseAdapter<H extends RecyclerView.ViewHolde
     private boolean[] isFooter = null;
     private int count = 0;
 
-    public NavigationCardBaseAdapter() {
+    public BaseAdapter() {
         super();
         registerAdapterDataObserver(new SectionDataObserver());
     }

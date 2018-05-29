@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFF"
     android:orientation="vertical">
 
     <ScrollView
@@ -12,7 +11,7 @@
         android:fadingEdge="vertical"
         android:scrollbars="vertical">
 
-        <com.rick.tws.widget.NavigationUI
+        <com.rick.tws.widget.Workspace
             android:id="@+id/navigation_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

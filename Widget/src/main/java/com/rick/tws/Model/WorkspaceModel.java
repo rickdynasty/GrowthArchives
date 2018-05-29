@@ -8,12 +8,15 @@ import com.rick.tws.util.FileUtils;
 
 import java.io.IOException;
 
-public class NavigationJsonModel {
-    public void loadJsonData(String jsonFilePath, NavigationLoadJsonCallback callback) {
+public class WorkspaceModel implements BaseJsonModel {
+    private static final String TAG = WorkspaceModel.class.getSimpleName();
+
+    @Override
+    public void loadJsonData(String jsonFilePath, BaseJsonModel.NavigationLoadJsonCallback callback) {
         try {
             String content = FileUtils.getJsonFromFile(jsonFilePath);
             Gson gson = new Gson();
-            NavigationJsonData entity = gson.fromJson(content, NavigationJsonData.class);
+            WorkspaceData entity = gson.fromJson(content, WorkspaceData.class);
             callback.success(entity);
         } catch (IOException e) {
             callback.failure("loadJsonData:" + jsonFilePath, e);
@@ -22,11 +25,12 @@ public class NavigationJsonModel {
         }
     }
 
-    public void loadJsonFromAssets(Context context, String jsonFileName, NavigationLoadJsonCallback callback) {
+    @Override
+    public void loadJsonFromAssets(Context context, String jsonFileName, BaseJsonModel.NavigationLoadJsonCallback callback) {
         try {
             String content = FileUtils.getJsonFromAssets(context, jsonFileName);
             Gson gson = new Gson();
-            NavigationJsonData navigationData = gson.fromJson(content, NavigationJsonData.class);
+            WorkspaceData navigationData = gson.fromJson(content, WorkspaceData.class);
             callback.success(navigationData);
         } catch (IOException e) {
             callback.failure("loadJsonFromAssets:" + jsonFileName, e);

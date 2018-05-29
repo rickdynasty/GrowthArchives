@@ -1,10 +1,12 @@
-package com.rick.tws.widget;
+package com.rick.tws.util;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 
-import com.rick.tws.Model.MetroCardStruct;
+import com.rick.tws.Model.CellItemStruct;
+import com.rick.tws.widget.MetroCard;
+import com.rick.tws.widget.R;
 
 public class MetroCardFactory {
     public static final int NOTIFY_CARD = 0;       //特别关注
@@ -20,7 +22,7 @@ public class MetroCardFactory {
     public static final int OA_CARD = 7;                //OA站点
     public static final int ATTENDANCE_NOTICE = 8;      //考勤通知
 
-    public static MetroCardStruct createMetroCardStruct(int type) {
+    public static CellItemStruct createMetroCardStruct(int type) {
         String title = "unknow";
         int iconRes = R.drawable.ic_launcher;
         int shadowRes = R.drawable.ic_launcher;
@@ -104,10 +106,10 @@ public class MetroCardFactory {
                 break;
         }
 
-        return new MetroCardStruct(title, iconRes, shadowRes, cardType, startColor, centerColor, endColor, actionType, action, weight);
+        return new CellItemStruct(title, iconRes, shadowRes, cardType, startColor, centerColor, endColor, actionType, action, weight);
     }
 
-    public static MetroCard createMetroCard(Context context, MetroCardStruct cardStruct) {
+    public static MetroCard createMetroCard(Context context, CellItemStruct cardStruct) {
         if (null == cardStruct) {
             return null;
         }

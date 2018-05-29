@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.rick.tws.Model.MetroCardStruct;
+import com.rick.tws.Model.CellItemStruct;
 
 public class MetroCard extends RelativeLayout {
     private static final String TAG = "MetroCard";
@@ -201,7 +201,7 @@ public class MetroCard extends RelativeLayout {
         return mAction;
     }
 
-    public void init(MetroCardStruct cardStruct) {
+    public void init(CellItemStruct cardStruct) {
         if (null == cardStruct) {
             throw new IllegalArgumentException("cardStruct cannot be empty!");
         }

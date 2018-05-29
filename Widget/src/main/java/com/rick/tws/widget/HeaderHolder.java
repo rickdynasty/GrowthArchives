@@ -1,4 +1,4 @@
-package com.rick.tws.Model;
+package com.rick.tws.widget;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -6,11 +6,11 @@ import android.widget.TextView;
 
 import com.rick.tws.widget.R;
 
-public class NavigationHeaderHolder extends RecyclerView.ViewHolder {
+public class HeaderHolder extends RecyclerView.ViewHolder {
     public TextView titleView;
     public TextView openView;
 
-    public NavigationHeaderHolder(View itemView) {
+    public HeaderHolder(View itemView) {
         super(itemView);
         initView();
     }

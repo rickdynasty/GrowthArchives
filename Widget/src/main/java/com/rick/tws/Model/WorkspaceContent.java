@@ -1,6 +1,10 @@
 package com.rick.tws.Model;
 
-public abstract class MetroArea {
+import java.util.ArrayList;
+
+public class WorkspaceContent {
+    public ArrayList<CellItemStruct> cardList;
+
     protected String name;
     protected int id;
 
@@ -19,5 +23,4 @@ public abstract class MetroArea {
     public int getID() {
         return id;
     }
-
 }

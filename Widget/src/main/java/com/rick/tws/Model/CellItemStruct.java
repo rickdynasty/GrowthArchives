@@ -4,8 +4,8 @@ import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 
-public class MetroCardStruct {
-    private static final String TAG = MetroCardStruct.class.getSimpleName();
+public class CellItemStruct {
+    private static final String TAG = CellItemStruct.class.getSimpleName();
 
     public static final String METRO_CARDS_PREFIX = "cards";
 
@@ -40,12 +40,12 @@ public class MetroCardStruct {
     private String action = "";
     private int weight = INVALID_VALUE;
 
-    public MetroCardStruct() {
+    public CellItemStruct() {
 
     }
 
-    public MetroCardStruct(String title, int iconResId, int shadowResId, int cardType, int startColor,
-                           int centerColor, int endColor, int actionType, String action, int weight) {
+    public CellItemStruct(String title, int iconResId, int shadowResId, int cardType, int startColor,
+                          int centerColor, int endColor, int actionType, String action, int weight) {
         setTitle(title);
         setIconResId(iconResId);
         setShadowResId(shadowResId);

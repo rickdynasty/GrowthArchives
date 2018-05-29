@@ -22,12 +22,12 @@ import android.support.v7.widget.GridLayoutManager;
  * A SpanSizeLookup to draw section headers or footer spanning the whole width of the RecyclerView
  * when using a GridLayoutManager
  */
-public class NavigationSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
+public class WorkspaceSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
-    protected NavigationCardBaseAdapter<?, ?, ?> adapter = null;
-    protected GridLayoutManager layoutManager = null;
+    protected BaseAdapter<?, ?, ?> adapter;
+    protected GridLayoutManager layoutManager;
 
-    public NavigationSpanSizeLookup(NavigationCardBaseAdapter<?, ?, ?> adapter, GridLayoutManager layoutManager) {
+    public WorkspaceSpanSizeLookup(BaseAdapter<?, ?, ?> adapter, GridLayoutManager layoutManager) {
         this.adapter = adapter;
         this.layoutManager = layoutManager;
     }
