@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 
 import com.rick.tws.widget.CellItemHolder;
 import com.rick.tws.widget.HeaderHolder;
-import com.rick.tws.widget.Workspace;
 import com.rick.tws.widget.R;
+import com.rick.tws.widget.Workspace;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +22,13 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private SparseBooleanArray mBooleanMap;
+    // 是否是收起的状态【默认是展开的】
+    private SparseBooleanArray mCollapseStateMap;
 
     public CellLayoutAdapter(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
-        mBooleanMap = new SparseBooleanArray();
+        mCollapseStateMap = new SparseBooleanArray();
     }
 
     public void setData(ArrayList<WorkspaceGroupContent> groupDataList) {
@@ -43,7 +44,9 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
     @Override
     protected int getItemCountForSection(int section) {
         int count = groupDataList.get(section).cellItemList.size();
-        if (!mBooleanMap.get(section) && count >= Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT) {
+
+        //判断是否是收起状态，并且当前count超过了收起状态的显示个数
+        if (mCollapseStateMap.get(section) && count >= Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT) {
             count = Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT;
         }
 
@@ -75,16 +78,21 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
         holder.openView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isOpen = mBooleanMap.get(section);
-                String text = isOpen ? mSwith_on : mSwith_off;
-                mBooleanMap.put(section, !isOpen);
+                boolean isCollapse = mCollapseStateMap.get(section);
+                String text = isCollapse ? mSwith_off : mSwith_on;
+                mCollapseStateMap.put(section, !isCollapse);
                 holder.openView.setText(text);
                 notifyDataSetChanged();
             }
         });
 
         holder.titleView.setText(groupDataList.get(section).getName());
-        holder.openView.setText(mBooleanMap.get(section) ? mSwith_off : mSwith_on);
+        if (Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT < groupDataList.get(section).cellItemList.size()) {
+            holder.openView.setVisibility(View.VISIBLE);
+            holder.openView.setText(mCollapseStateMap.get(section) ? mSwith_on : mSwith_off);
+        } else {
+            holder.openView.setVisibility(View.GONE);
+        }
     }
 
     @Override
