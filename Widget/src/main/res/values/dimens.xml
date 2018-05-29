@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="cell_item_with">33dp</dimen>
-    <dimen name="cell_item_height">33dp</dimen>
+    <dimen name="cell_item_with">115dp</dimen>
+    <dimen name="cell_item_cion_size">33dp</dimen>
 
     <dimen name="cell_item_icon_margin_top_0">45dp</dimen>
     <dimen name="cell_item_icon_margin_top_1">25dp</dimen>

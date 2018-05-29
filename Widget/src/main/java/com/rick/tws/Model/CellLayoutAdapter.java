@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rick.tws.widget.CellItemHolder;
+import com.rick.tws.widget.CellItemView;
 import com.rick.tws.widget.HeaderHolder;
 import com.rick.tws.widget.R;
 import com.rick.tws.widget.Workspace;
@@ -70,7 +71,10 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
 
     @Override
     protected CellItemHolder onCreateItemViewHolder(ViewGroup parent, int viewType) {
-        return new CellItemHolder(mInflater.inflate(R.layout.workspace_cell_item, parent, false));
+        CellItemView itemView = new CellItemView(mContext);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,mContext.getResources().getDimensionPixelSize(R.dimen.cell_item_with));
+        itemView.setLayoutParams(layoutParams);
+        return new CellItemHolder(itemView);
     }
 
     @Override

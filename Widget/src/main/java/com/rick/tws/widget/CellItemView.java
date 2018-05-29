@@ -42,13 +42,16 @@ public class CellItemView extends RelativeLayout {
     }
 
     public CellItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
+        super(context, attrs, defStyleAttr);
     }
 
     public void setCardType(int cardType) {
         mCardType = cardType;
     }
 
+    /*
+     * 高版本api,低版本没有
+     */
     public CellItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -63,7 +66,7 @@ public class CellItemView extends RelativeLayout {
         if (null == mIcon) {
             mIcon = new ImageView(getContext());
             final Resources res = getResources();
-            LayoutParams lp = new LayoutParams(res.getDimensionPixelSize(R.dimen.cell_item_with), res.getDimensionPixelSize(R.dimen.cell_item_height));
+            LayoutParams lp = new LayoutParams(res.getDimensionPixelSize(R.dimen.cell_item_cion_size), res.getDimensionPixelSize(R.dimen.cell_item_cion_size));
             lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
             if (0 == mCardType) {
                 lp.topMargin = res.getDimensionPixelSize(R.dimen.cell_item_icon_margin_top_0);
