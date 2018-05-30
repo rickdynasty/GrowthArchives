@@ -2,6 +2,15 @@ package com.rick.tws.Model;
 
 import android.graphics.Color;
 
+/**
+ * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
+ *
+ * @author yongchen
+ * @version v1.0
+ * @date 2018-05-30
+ * @des 工作台Workspace里面的一个Cell
+ * @modify On 2018-05-30 by author for reason ...
+ */
 public class CellItemStruct {
     private static final String TAG = CellItemStruct.class.getSimpleName();
 
@@ -45,7 +54,7 @@ public class CellItemStruct {
 
     private int weight = INVALID_VALUE;
     protected String textColor;
-    protected int textSize;
+    protected int textSize = INVALID_VALUE;
     @Deprecated
     protected String background;
     private int backgroundColor = Color.WHITE;
@@ -227,11 +236,19 @@ public class CellItemStruct {
         return this.backgroundColor;
     }
 
+    public float getTextSize() {
+        return textSize;
+    }
+
     public boolean bkColorEffective() {
         return INVALID_VALUE != this.backgroundColor;
     }
 
     public boolean weightEffective() {
         return INVALID_VALUE < weight;
+    }
+
+    public boolean textSizeEffective() {
+        return INVALID_VALUE < textSize;
     }
 }

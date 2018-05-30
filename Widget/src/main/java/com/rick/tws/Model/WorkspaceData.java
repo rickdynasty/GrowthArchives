@@ -10,6 +10,15 @@ import com.rick.tws.widget.R;
 
 import java.util.ArrayList;
 
+/**
+ * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
+ *
+ * @author yongchen
+ * @version v1.0
+ * @date 2018-05-30
+ * @des 工作台Wrokspace数据结构，主要用于适配GSON解析
+ * @modify On 2018-05-30 by author for reason ...
+ */
 public class WorkspaceData {
     private boolean unprocessing = true;
     public ArrayList<WorkspaceGroupContent> workspaceGroups;

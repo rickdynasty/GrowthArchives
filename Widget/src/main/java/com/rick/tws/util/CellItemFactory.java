@@ -8,6 +8,15 @@ import com.rick.tws.Model.CellItemStruct;
 import com.rick.tws.widget.CellItemView;
 import com.rick.tws.widget.R;
 
+/**
+ * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
+ *
+ * @author yongchen
+ * @version v1.0
+ * @date 2018-05-30
+ * @des CellItem的工厂
+ * @modify On 2018-05-30 by author for reason ...
+ */
 public class CellItemFactory {
     public static final int NOTIFY_CARD = 0;       //特别关注
     public static final int DATE_CARD = 1;          //我的日程

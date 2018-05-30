@@ -4,6 +4,15 @@ import android.graphics.Color;
 
 import java.util.ArrayList;
 
+/**
+ * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
+ *
+ * @author yongchen
+ * @version v1.0
+ * @date 2018-05-30
+ * @des 工作台Wrokspace数据
+ * @modify On 2018-05-30 by author for reason ...
+ */
 public class WorkspaceGroupContent {
     public ArrayList<CellItemStruct> cellItemList;
 
@@ -15,24 +24,30 @@ public class WorkspaceGroupContent {
     @Deprecated
     protected String header_textColor;     //for json
     private int headerTextColor = Color.WHITE;
+
     public int getHeaderTextColor() {
         return headerTextColor;
     }
+
     public void setHeaderTextColor(int color) {
         this.headerTextColor = color;
     }
 
     public int header_textSize = CellItemStruct.INVALID_VALUE;
+
     public int getHeaderTextSize() {
         return header_textSize;
     }
 
     private boolean header_boldText = false;
+
     public boolean getIsHeaderBoldText() {
         return header_boldText;
     }
 
-    private boolean isShrink = true;
+    //是否可以伸展，默认不伸缩
+    private boolean isShrink = false;
+
     public boolean getIsShrink() {
         return isShrink;
     }
@@ -40,9 +55,11 @@ public class WorkspaceGroupContent {
     @Deprecated
     protected String header_background;     //for json
     private int header_backgroundColor = Color.WHITE;
+
     public int getHeaderBackgroundColor() {
         return header_backgroundColor;
     }
+
     public void setHeaderBackgroundColor(int color) {
         this.header_backgroundColor = color;
     }
@@ -52,6 +69,7 @@ public class WorkspaceGroupContent {
     public int item_height = CellItemStruct.INVALID_VALUE;
     public int icon_width = CellItemStruct.INVALID_VALUE;
     public int icon_height = CellItemStruct.INVALID_VALUE;
+    public boolean equal_width = true;
 
     public void setName(String name) {
         this.groupName = name;

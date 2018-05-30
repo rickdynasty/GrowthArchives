@@ -7,6 +7,15 @@ import com.rick.tws.Model.WorkspaceData;
 import com.rick.tws.Model.WorkspaceModel;
 import com.rick.tws.View.IWorkspaceUI;
 
+/**
+ * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
+ *
+ * @author yongchen
+ * @version v1.0
+ * @date 2018-05-30
+ * @des 工作台Workspace的父容器采用json方式加载数据的Presenter
+ * @modify On 2018-05-30 by author for reason ...
+ */
 public class WrokspaceJsonPresenter implements BasePresenter, BaseJsonModel.NavigationLoadJsonCallback {
 
     private final IWorkspaceUI mView;

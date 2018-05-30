@@ -9,6 +9,15 @@ import com.rick.tws.util.FileUtils;
 
 import java.io.IOException;
 
+/**
+ * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
+ *
+ * @author yongchen
+ * @version v1.0
+ * @date 2018-05-30
+ * @des 工作台Wrokspace所在容器的数据加载model
+ * @modify On 2018-05-30 by author for reason ...
+ */
 public class WorkspaceModel implements BaseJsonModel {
     private static final String TAG = WorkspaceModel.class.getSimpleName();
 

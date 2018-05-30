@@ -2,20 +2,19 @@ package com.rick.tws.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 
-import com.rick.tws.Model.CellLayoutAdapter;
-import com.rick.tws.Model.WorkspaceGroupContent;
-import com.rick.tws.Model.WorkspaceSpanSizeLookup;
-import com.rick.tws.Presenter.WrokspaceJsonPresenter;
-import com.rick.tws.View.IWorkspaceUI;
-
-import java.util.ArrayList;
-
-public class Workspace extends RecyclerView{
+/**
+ * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
+ *
+ * @author yongchen
+ * @version v1.0
+ * @date 2018-05-30
+ * @des 工作台控件
+ * @modify On 2018-05-30 by author for reason ...
+ */
+public class Workspace extends RecyclerView {
 
     private static final String TAG = Workspace.class.getSimpleName();
     protected Context mContext;
@@ -24,7 +23,6 @@ public class Workspace extends RecyclerView{
     public static final int GRID_SPANCOUNT = 3;
     // 默认收起显示的行数
     public static final int GRID_GROUP_OFF_MULTIPLE_SPANCOUNT = 1;
-
 
 
     public Workspace(Context context) {

@@ -7,6 +7,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -14,6 +15,15 @@ import android.widget.TextView;
 
 import com.rick.tws.Model.CellItemStruct;
 
+/**
+ * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
+ *
+ * @author yongchen
+ * @version v1.0
+ * @date 2018-05-30
+ * @des CellItemView 工作台展示的具体一项Cell
+ * @modify On 2018-05-30 by author for reason ...
+ */
 public class CellItemView extends RelativeLayout {
     private static final String TAG = CellItemView.class.getSimpleName();
 
@@ -34,6 +44,7 @@ public class CellItemView extends RelativeLayout {
     private int mTextColor_normal = Color.WHITE;
     private int mTextColor_focus = Color.WHITE;
     private GradientDrawable mGradientDrawable = null;
+    private final float mDefaultTextSize;
 
     //
     private final int titleLeftMargin, titleTopMargin, titleBottomMargin;
@@ -51,6 +62,8 @@ public class CellItemView extends RelativeLayout {
         titleLeftMargin = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_left_0);
         titleTopMargin = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
         titleBottomMargin = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_bottom_1);
+        mDefaultTextSize = getResources().getDimension(R.dimen.tws_Micro_TextSize);
+
     }
 
     public void setCardType(int cardType) {
@@ -85,14 +98,14 @@ public class CellItemView extends RelativeLayout {
             colors = null;
         }
 
-        if (null == mBackgroundImage) {
-            mBackgroundImage = new ImageView(getContext());
-            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            addView(mBackgroundImage, lp);
-        }
-
         //优先使用渐变
         if (null != colors) {
+            if (null == mBackgroundImage) {
+                mBackgroundImage = new ImageView(getContext());
+                LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                addView(mBackgroundImage, lp);
+            }
+
             // 处理 shadowImageView mBackgroundImage
             mBackgroundImage.setVisibility(VISIBLE);
             setCardGradientColor(colors);
@@ -108,6 +121,8 @@ public class CellItemView extends RelativeLayout {
             //如果没使用渐变，就采用背景色
             if (cardStruct.bkColorEffective()) {
                 setBackgroundColor(cardStruct.getBackgroundColor());
+            } else {
+                setBackgroundColor(Color.WHITE);
             }
         }
         mCardType = cardStruct.getCardType();
@@ -132,6 +147,12 @@ public class CellItemView extends RelativeLayout {
             mTitle = new TextView(getContext());
             addView(mTitle);
         }
+//        if (cardStruct.textSizeEffective()) {
+//            mTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, cardStruct.getTextSize());
+//        } else {
+//            mTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, mDefaultTextSize);
+//        }
+
         LayoutParams lpTitle = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         switch (mCardType) {
             case TITLE_ON_CARD_TYPE:

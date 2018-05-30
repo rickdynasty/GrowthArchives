@@ -6,12 +6,13 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 /**
- * An extension to RecyclerView.Adapter to provide groups with headers and footers to a
- * RecyclerView. Each group can have an arbitrary number of items.
+ * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
  *
- * @param <H>  Class extending RecyclerView.ViewHolder to hold and bind the header view
- * @param <VH> Class extending RecyclerView.ViewHolder to hold and bind the items view
- * @param <F>  Class extending RecyclerView.ViewHolder to hold and bind the footer view
+ * @author yongchen
+ * @version v1.0
+ * @date 2018-05-30
+ * @des 工作台Workspace的BaseAdapter
+ * @modify On 2018-05-30 by author for reason ...
  */
 public abstract class BaseAdapter<H extends RecyclerView.ViewHolder,
         VH extends RecyclerView.ViewHolder,

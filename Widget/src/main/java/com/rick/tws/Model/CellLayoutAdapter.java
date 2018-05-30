@@ -16,6 +16,15 @@ import com.rick.tws.widget.Workspace;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
+ *
+ * @author yongchen
+ * @version v1.0
+ * @date 2018-05-30
+ * @des 工作台Wrokspace一页展示适配器
+ * @modify On 2018-05-30 by author for reason ...
+ */
 public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder, RecyclerView.ViewHolder> {
     protected static final String TAG = "rick_Print:CellLayout";
     public ArrayList<WorkspaceGroupContent> groupDataList;
