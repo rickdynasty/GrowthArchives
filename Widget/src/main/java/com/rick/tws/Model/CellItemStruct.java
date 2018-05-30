@@ -1,7 +1,6 @@
 package com.rick.tws.Model;
 
 import android.graphics.Color;
-import android.util.Log;
 
 public class CellItemStruct {
     private static final String TAG = CellItemStruct.class.getSimpleName();
@@ -74,16 +73,7 @@ public class CellItemStruct {
 
     @Override
     public String toString() {
-        return "CardStruct info[\\n" + title
-                + " \\n" + icon
-                + " \\n" + shadow_drawable
-                + " \\n" + card_type
-                + " \\n" + gradientStartColor
-                + " \\n" + gradientCenterColor
-                + " \\n" + gradientEndColor
-                + " \\n" + action_type
-                + " \\n" + action
-                + " \\n" + weight + "]";
+        return "title：" + title + " card_type:" + card_type + " action:" + action;
     }
 
     public String getTitle() {

@@ -13,7 +13,7 @@ public class WorkspaceSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
     @Override
     public int getSpanSize(int position) {
-        if (adapter.isSectionHeaderPosition(position) || adapter.isSectionFooterPosition(position)) {
+        if (adapter.isGroupHeaderPosition(position) || adapter.isGroupFooterPosition(position)) {
             return layoutManager.getSpanCount();
         } else {
             return 1;

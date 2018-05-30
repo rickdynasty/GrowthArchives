@@ -2,6 +2,7 @@ package com.rick.tws.Model;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder, RecyclerView.ViewHolder> {
+    protected static final String TAG = "rick_Print:CellLayout";
     public ArrayList<WorkspaceGroupContent> groupDataList;
     private String mSwith_off = "收起";
     private String mSwith_on = "展开";
@@ -37,34 +39,35 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
     }
 
     @Override
-    protected int getSectionCount() {
+    protected int getGroupCount() {
         return isEmpty(groupDataList) ? 0 : groupDataList.size();
     }
 
     @Override
-    protected int getItemCountForSection(int section) {
-        int count = groupDataList.get(section).cellItemList.size();
+    protected int getItemCountForGroup(int group) {
+        final WorkspaceGroupContent groupContent = groupDataList.get(group);
+        int count = isEmpty(groupContent.cellItemList) ? 0 : groupContent.cellItemList.size();
 
         //判断是否是收起状态，并且当前count超过了收起状态的显示个数
-        if (mCollapseStateMap.get(section) && count >= Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT) {
+        if (mCollapseStateMap.get(group) && count >= Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT) {
             count = Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT;
         }
 
-        return isEmpty(groupDataList.get(section).cellItemList) ? 0 : count;
+        return count;
     }
 
     @Override
-    protected boolean hasFooterInSection(int section) {
+    protected boolean hasFooterInGroup(int group) {
         return false;
     }
 
     @Override
-    protected HeaderHolder onCreateSectionHeaderViewHolder(ViewGroup parent, int viewType) {
+    protected HeaderHolder onCreateGroupHeaderViewHolder(ViewGroup parent, int viewType) {
         return new HeaderHolder(mInflater.inflate(R.layout.workspace_header_item, parent, false));
     }
 
     @Override
-    protected RecyclerView.ViewHolder onCreateSectionFooterViewHolder(ViewGroup parent, int viewType) {
+    protected RecyclerView.ViewHolder onCreateGroupFooterViewHolder(ViewGroup parent, int viewType) {
         return null;
     }
 
@@ -74,38 +77,40 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
     }
 
     @Override
-    protected void onBindSectionHeaderViewHolder(final HeaderHolder holder, final int section) {
-        holder.titleView.setText(groupDataList.get(section).getName());
+    protected void onBindGroupHeaderViewHolder(final HeaderHolder holder, final int group) {
+        holder.titleView.setText(groupDataList.get(group).getName());
 
-        final WorkspaceGroupContent groupContent = groupDataList.get(section);
+        final WorkspaceGroupContent groupContent = groupDataList.get(group);
         if (groupContent.getIsShrink() && Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT < groupContent.cellItemList.size()) {
             holder.openView.setVisibility(View.VISIBLE);
 
             holder.openView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    boolean isCollapse = mCollapseStateMap.get(section);
+                    boolean isCollapse = mCollapseStateMap.get(group);
                     String text = isCollapse ? mSwith_off : mSwith_on;
-                    mCollapseStateMap.put(section, !isCollapse);
+                    mCollapseStateMap.put(group, !isCollapse);
                     holder.openView.setText(text);
                     notifyDataSetChanged();
                 }
             });
 
-            holder.openView.setText(mCollapseStateMap.get(section) ? mSwith_on : mSwith_off);
+            holder.openView.setText(mCollapseStateMap.get(group) ? mSwith_on : mSwith_off);
         } else {
             holder.openView.setVisibility(View.GONE);
         }
     }
 
     @Override
-    protected void onBindSectionFooterViewHolder(RecyclerView.ViewHolder holder, int section) {
+    protected void onBindGroupFooterViewHolder(RecyclerView.ViewHolder holder, int group) {
 
     }
 
     @Override
-    protected void onBindItemViewHolder(CellItemHolder holder, int section, int position) {
-        holder.card.init(groupDataList.get(section).cellItemList.get(position));
+    protected void onBindItemViewHolder(CellItemHolder holder, int group, int position) {
+        final CellItemStruct itemStruct = groupDataList.get(group).cellItemList.get(position);
+        Log.i(TAG, "onBindItemViewHolder group:" + group + " position:" + position + " itemStruct is " + itemStruct);
+        holder.card.init(itemStruct);
         if (mContext instanceof View.OnClickListener) {
             holder.card.setOnClickListener((View.OnClickListener) mContext);
         }

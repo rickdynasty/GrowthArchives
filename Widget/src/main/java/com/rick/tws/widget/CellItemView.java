@@ -1,7 +1,6 @@
 package com.rick.tws.widget;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.ColorInt;
@@ -36,6 +35,9 @@ public class CellItemView extends RelativeLayout {
     private int mTextColor_focus = Color.WHITE;
     private GradientDrawable mGradientDrawable = null;
 
+    //
+    private final int titleLeftMargin, titleTopMargin, titleBottomMargin;
+
     public CellItemView(Context context) {
         this(context, null);
     }
@@ -46,25 +48,16 @@ public class CellItemView extends RelativeLayout {
 
     public CellItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        titleLeftMargin = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_left_0);
+        titleTopMargin = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
+        titleBottomMargin = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_bottom_1);
     }
 
     public void setCardType(int cardType) {
         mCardType = cardType;
     }
 
-    /*
-     * 高版本api,低版本没有
-     */
-    public CellItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-    private boolean hasInit = false;
-
     public void init(CellItemStruct cardStruct) {
-        if (hasInit)
-            return;
-
         ViewGroup.LayoutParams lp = getLayoutParams();
         lp.width = cardStruct.item_width;
         lp.height = cardStruct.item_height;
@@ -74,14 +67,13 @@ public class CellItemView extends RelativeLayout {
             throw new IllegalArgumentException("cardStruct cannot be empty!");
         }
 
-        mCardType = cardStruct.getCardType();
         initWidget(cardStruct);
 
         mActionType = cardStruct.getActionType();
         mAction = cardStruct.getAction();
-        hasInit = true;
     }
 
+    // 注意这里不能做过滤 - 是否已经init，RecycleView有回收复用机制，可能同一个CellItemView会init多次
     private void initWidget(final CellItemStruct cardStruct) {
         //处理渐变背景
         int[] colors;
@@ -93,15 +85,15 @@ public class CellItemView extends RelativeLayout {
             colors = null;
         }
 
+        if (null == mBackgroundImage) {
+            mBackgroundImage = new ImageView(getContext());
+            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            addView(mBackgroundImage, lp);
+        }
+
         //优先使用渐变
         if (null != colors) {
             // 处理 shadowImageView mBackgroundImage
-            if (null == mBackgroundImage) {
-                mBackgroundImage = new ImageView(getContext());
-                LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-                addView(mBackgroundImage, lp);
-            }
-
             mBackgroundImage.setVisibility(VISIBLE);
             setCardGradientColor(colors);
 
@@ -118,43 +110,41 @@ public class CellItemView extends RelativeLayout {
                 setBackgroundColor(cardStruct.getBackgroundColor());
             }
         }
+        mCardType = cardStruct.getCardType();
 
         if (null == mIcon) {
             mIcon = new ImageView(getContext());
-            final Resources res = getResources();
-            LayoutParams lp = new LayoutParams(cardStruct.icon_width, cardStruct.icon_height);
-            lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            switch (mCardType) {
-                case TITLE_ON_CARD_TYPE:
-                    lp.topMargin = (cardStruct.item_height - cardStruct.icon_height) / 2 + res.getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
-                    break;
-                case TITLE_DOWN_CARD_TYPE:
-                    lp.topMargin = (cardStruct.item_height - cardStruct.icon_height) / 2 - res.getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
-                    break;
-            }
-
-            addView(mIcon, lp);
+            addView(mIcon);
         }
+        LayoutParams lpIcon = new LayoutParams(cardStruct.icon_width, cardStruct.icon_height);
+        lpIcon.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        switch (mCardType) {
+            case TITLE_ON_CARD_TYPE:
+                lpIcon.topMargin = (cardStruct.item_height - cardStruct.icon_height) / 2 + titleTopMargin;
+                break;
+            case TITLE_DOWN_CARD_TYPE:
+                lpIcon.topMargin = (cardStruct.item_height - cardStruct.icon_height) / 2 - titleTopMargin;
+                break;
+        }
+        updateViewLayout(mIcon, lpIcon);
 
         if (null == mTitle) {
             mTitle = new TextView(getContext());
-            final Resources res = getResources();
-            LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-            switch (mCardType) {
-                case TITLE_ON_CARD_TYPE:
-                    lp.leftMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_left_0);
-                    lp.topMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
-                    break;
-                case TITLE_DOWN_CARD_TYPE:
-                    lp.bottomMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_bottom_1);
-                    lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                    break;
-            }
-
-            addView(mTitle, lp);
+            addView(mTitle);
         }
+        LayoutParams lpTitle = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        switch (mCardType) {
+            case TITLE_ON_CARD_TYPE:
+                lpTitle.leftMargin = titleLeftMargin;
+                lpTitle.topMargin = titleTopMargin;
+                break;
+            case TITLE_DOWN_CARD_TYPE:
+                lpTitle.bottomMargin = titleBottomMargin;
+                lpTitle.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                lpTitle.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                break;
+        }
+        updateViewLayout(mTitle, lpTitle);
 
         mTitle.setText(cardStruct.getTitle());
         if (!TextUtils.isEmpty(cardStruct.getIconName())) {

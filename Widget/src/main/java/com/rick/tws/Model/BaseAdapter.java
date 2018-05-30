@@ -1,26 +1,13 @@
-/*
- * Copyright (C) 2015 Tomás Ruiz-López.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.rick.tws.Model;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 
 /**
- * An extension to RecyclerView.Adapter to provide sections with headers and footers to a
- * RecyclerView. Each section can have an arbitrary number of items.
+ * An extension to RecyclerView.Adapter to provide groups with headers and footers to a
+ * RecyclerView. Each group can have an arbitrary number of items.
  *
  * @param <H>  Class extending RecyclerView.ViewHolder to hold and bind the header view
  * @param <VH> Class extending RecyclerView.ViewHolder to hold and bind the items view
@@ -30,20 +17,24 @@ public abstract class BaseAdapter<H extends RecyclerView.ViewHolder,
         VH extends RecyclerView.ViewHolder,
         F extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    protected static final String TAG = "rick_Print:BaseAdapter";
 
-    protected static final int TYPE_SECTION_HEADER = -1;
-    protected static final int TYPE_SECTION_FOOTER = -2;
+    protected static final int TYPE_GROUP_HEADER = -1;
+    protected static final int TYPE_GROUP_FOOTER = -2;
     protected static final int TYPE_ITEM = -3;
 
-    private int[] sectionForPosition = null;
-    private int[] positionWithinSection = null;
+    private int[] groupForPosition = null;
+    private int[] positionWithinGroup = null;
     private boolean[] isHeader = null;
     private boolean[] isFooter = null;
     private int count = 0;
 
+    private GroupDataObserver mGroupDataObserver = null;
+
     public BaseAdapter() {
         super();
-        registerAdapterDataObserver(new SectionDataObserver());
+        mGroupDataObserver = new GroupDataObserver();
+        registerAdapterDataObserver(mGroupDataObserver);
     }
 
     @Override
@@ -52,8 +43,16 @@ public abstract class BaseAdapter<H extends RecyclerView.ViewHolder,
         setupIndices();
     }
 
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        if (null != mGroupDataObserver) {
+            unregisterAdapterDataObserver(mGroupDataObserver);
+        }
+    }
+
     /**
-     * Returns the sum of number of items for each section plus headers and footers if they
+     * Returns the sum of number of items for each group plus headers and footers if they
      * are provided.
      */
     @Override
@@ -69,28 +68,31 @@ public abstract class BaseAdapter<H extends RecyclerView.ViewHolder,
 
     private int countItems() {
         int count = 0;
-        int sections = getSectionCount();
+        int groups = getGroupCount();
 
-        for (int i = 0; i < sections; i++) {
-            count += 1 + getItemCountForSection(i) + (hasFooterInSection(i) ? 1 : 0);
+        for (int i = 0; i < groups; i++) {
+            count += 1 + getItemCountForGroup(i) + (hasFooterInGroup(i) ? 1 : 0);
         }
+
+        Log.i(TAG, "countItems count=" + count);
+
         return count;
     }
 
     private void precomputeIndices() {
-        int sections = getSectionCount();
+        int groups = getGroupCount();
         int index = 0;
 
-        for (int i = 0; i < sections; i++) {
+        for (int i = 0; i < groups; i++) {
             setPrecomputedItem(index, true, false, i, 0);
             index++;
 
-            for (int j = 0; j < getItemCountForSection(i); j++) {
+            for (int j = 0; j < getItemCountForGroup(i); j++) {
                 setPrecomputedItem(index, false, false, i, j);
                 index++;
             }
 
-            if (hasFooterInSection(i)) {
+            if (hasFooterInGroup(i)) {
                 setPrecomputedItem(index, false, true, i, 0);
                 index++;
             }
@@ -98,27 +100,28 @@ public abstract class BaseAdapter<H extends RecyclerView.ViewHolder,
     }
 
     private void allocateAuxiliaryArrays(int count) {
-        sectionForPosition = new int[count];
-        positionWithinSection = new int[count];
+        groupForPosition = new int[count];
+        positionWithinGroup = new int[count];
         isHeader = new boolean[count];
         isFooter = new boolean[count];
     }
 
-    private void setPrecomputedItem(int index, boolean isHeader, boolean isFooter, int section, int position) {
+    private void setPrecomputedItem(int index, boolean isHeader, boolean isFooter, int group, int position) {
+        Log.i(TAG, "setPrecomputedItem:" + index + " isHeader:" + isHeader + " isFooter:" + isFooter + " group:" + group + " position:" + position);
         this.isHeader[index] = isHeader;
         this.isFooter[index] = isFooter;
-        sectionForPosition[index] = section;
-        positionWithinSection[index] = position;
+        groupForPosition[index] = group;
+        positionWithinGroup[index] = position;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder;
 
-        if (isSectionHeaderViewType(viewType)) {
-            viewHolder = onCreateSectionHeaderViewHolder(parent, viewType);
-        } else if (isSectionFooterViewType(viewType)) {
-            viewHolder = onCreateSectionFooterViewHolder(parent, viewType);
+        if (isGroupHeaderViewType(viewType)) {
+            viewHolder = onCreateGroupHeaderViewHolder(parent, viewType);
+        } else if (isGroupFooterViewType(viewType)) {
+            viewHolder = onCreateGroupFooterViewHolder(parent, viewType);
         } else {
             viewHolder = onCreateItemViewHolder(parent, viewType);
         }
@@ -128,55 +131,71 @@ public abstract class BaseAdapter<H extends RecyclerView.ViewHolder,
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        int section = sectionForPosition[position];
-        int index = positionWithinSection[position];
+        int group = groupForPosition[position];
+        int index = positionWithinGroup[position];
 
-        if (isSectionHeaderPosition(position)) {
-            onBindSectionHeaderViewHolder((H) holder, section);
-        } else if (isSectionFooterPosition(position)) {
-            onBindSectionFooterViewHolder((F) holder, section);
+        if (isGroupHeaderPosition(position)) {
+            onBindGroupHeaderViewHolder((H) holder, group);
+        } else if (isGroupFooterPosition(position)) {
+            onBindGroupFooterViewHolder((F) holder, group);
         } else {
-            onBindItemViewHolder((VH) holder, section, index);
+            onBindItemViewHolder((VH) holder, group, index);
         }
 
     }
 
     @Override
     public int getItemViewType(int position) {
-
-        if (sectionForPosition == null) {
+        if (groupForPosition == null) {
             setupIndices();
         }
 
-        int section = sectionForPosition[position];
-        int index = positionWithinSection[position];
+        int group = groupForPosition[position];
+        int index = positionWithinGroup[position];
 
-        if (isSectionHeaderPosition(position)) {
-            return getSectionHeaderViewType(section);
-        } else if (isSectionFooterPosition(position)) {
-            return getSectionFooterViewType(section);
+        int type = 0;
+        if (isGroupHeaderPosition(position)) {
+            type = getGroupHeaderViewType(group);
+        } else if (isGroupFooterPosition(position)) {
+            type = getGroupFooterViewType(group);
         } else {
-            return getSectionItemViewType(section, index);
+            type = getGroupItemViewType(group, index);
         }
 
+        Log.i(TAG, "getItemViewType:" + position + " type=" + getTypeDes(type));
+
+        return type;
     }
 
-    protected int getSectionHeaderViewType(int section) {
-        return TYPE_SECTION_HEADER;
+    public String getTypeDes(final int type) {
+        switch (type) {
+            case TYPE_GROUP_HEADER:
+                return "Group Header";
+            case TYPE_GROUP_FOOTER:
+                return "Group Footer";
+            case TYPE_ITEM:
+                return "Item";
+            default:
+                return "Unknow";
+        }
     }
 
-    protected int getSectionFooterViewType(int section) {
-        return TYPE_SECTION_FOOTER;
+    protected int getGroupHeaderViewType(int group) {
+        return TYPE_GROUP_HEADER;
     }
 
-    protected int getSectionItemViewType(int section, int position) {
+    protected int getGroupFooterViewType(int group) {
+        return TYPE_GROUP_FOOTER;
+    }
+
+    protected int getGroupItemViewType(int group, int position) {
         return TYPE_ITEM;
     }
 
     /**
      * Returns true if the argument position corresponds to a header
      */
-    public boolean isSectionHeaderPosition(int position) {
+    public boolean isGroupHeaderPosition(int position) {
         if (isHeader == null) {
             setupIndices();
         }
@@ -186,45 +205,45 @@ public abstract class BaseAdapter<H extends RecyclerView.ViewHolder,
     /**
      * Returns true if the argument position corresponds to a footer
      */
-    public boolean isSectionFooterPosition(int position) {
+    public boolean isGroupFooterPosition(int position) {
         if (isFooter == null) {
             setupIndices();
         }
         return isFooter[position];
     }
 
-    protected boolean isSectionHeaderViewType(int viewType) {
-        return viewType == TYPE_SECTION_HEADER;
+    protected boolean isGroupHeaderViewType(int viewType) {
+        return viewType == TYPE_GROUP_HEADER;
     }
 
-    protected boolean isSectionFooterViewType(int viewType) {
-        return viewType == TYPE_SECTION_FOOTER;
+    protected boolean isGroupFooterViewType(int viewType) {
+        return viewType == TYPE_GROUP_FOOTER;
     }
 
     /**
-     * Returns the number of sections in the RecyclerView
+     * Returns the number of group in the RecyclerView
      */
-    protected abstract int getSectionCount();
+    protected abstract int getGroupCount();
 
     /**
-     * Returns the number of items for a given section
+     * Returns the number of items for a given group
      */
-    protected abstract int getItemCountForSection(int section);
+    protected abstract int getItemCountForGroup(int group);
 
     /**
-     * Returns true if a given section should have a footer
+     * Returns true if a given group should have a footer
      */
-    protected abstract boolean hasFooterInSection(int section);
+    protected abstract boolean hasFooterInGroup(int group);
 
     /**
      * Creates a ViewHolder of class H for a Header
      */
-    protected abstract H onCreateSectionHeaderViewHolder(ViewGroup parent, int viewType);
+    protected abstract H onCreateGroupHeaderViewHolder(ViewGroup parent, int viewType);
 
     /**
      * Creates a ViewHolder of class F for a Footer
      */
-    protected abstract F onCreateSectionFooterViewHolder(ViewGroup parent, int viewType);
+    protected abstract F onCreateGroupFooterViewHolder(ViewGroup parent, int viewType);
 
     /**
      * Creates a ViewHolder of class VH for an Item
@@ -232,21 +251,21 @@ public abstract class BaseAdapter<H extends RecyclerView.ViewHolder,
     protected abstract VH onCreateItemViewHolder(ViewGroup parent, int viewType);
 
     /**
-     * Binds data to the header view of a given section
+     * Binds data to the header view of a given group
      */
-    protected abstract void onBindSectionHeaderViewHolder(H holder, int section);
+    protected abstract void onBindGroupHeaderViewHolder(H holder, int group);
 
     /**
-     * Binds data to the footer view of a given section
+     * Binds data to the footer view of a given group
      */
-    protected abstract void onBindSectionFooterViewHolder(F holder, int section);
+    protected abstract void onBindGroupFooterViewHolder(F holder, int group);
 
     /**
-     * Binds data to the item view for a given position within a section
+     * Binds data to the item view for a given position within a group
      */
-    protected abstract void onBindItemViewHolder(VH holder, int section, int position);
+    protected abstract void onBindItemViewHolder(VH holder, int group, int position);
 
-    class SectionDataObserver extends RecyclerView.AdapterDataObserver {
+    class GroupDataObserver extends RecyclerView.AdapterDataObserver {
         @Override
         public void onChanged() {
             setupIndices();
@@ -254,6 +273,6 @@ public abstract class BaseAdapter<H extends RecyclerView.ViewHolder,
     }
 
     public int getItemPosition(int position) {
-        return positionWithinSection[position];
+        return positionWithinGroup[position];
     }
 }
