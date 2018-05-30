@@ -82,8 +82,8 @@
           "title": "日志",
           "icon": "function_icon_team_apply",
           "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": "1",
-          "background": "#FF39B1B7",
+          "startColor": "#FF1E78FF",
+          "endColor": "#FF52B0FF",
           "action_type": "0",
           "action": "点击Card后的去向"
         },
@@ -91,8 +91,8 @@
           "title": "公告",
           "icon": "function_icon_attend_calendar",
           "shadow_drawable": "shadow_main_39b1b7",
-          "card_type": "1",
-          "background": "#FFFF0F60",
+          "startColor": "#FF1E78FF",
+          "endColor": "#FF52B0FF",
           "action_type": "0",
           "action": "点击Card后的去向"
         }
