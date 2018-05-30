@@ -9,14 +9,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.rick.tws.Model.CellLayoutAdapter;
-import com.rick.tws.Model.WorkspaceGroupContent;
+import com.rick.tws.Model.WorkspaceData;
 import com.rick.tws.Model.WorkspaceSpanSizeLookup;
 import com.rick.tws.Presenter.WrokspaceJsonPresenter;
 import com.rick.tws.widget.CellItemView;
 import com.rick.tws.widget.R;
 import com.rick.tws.widget.Workspace;
-
-import java.util.ArrayList;
 
 public class WorkspaceActivity extends Activity implements IWorkspaceUI, View.OnClickListener {
     private static final String TAG = WorkspaceActivity.class.getSimpleName();
@@ -43,13 +41,16 @@ public class WorkspaceActivity extends Activity implements IWorkspaceUI, View.On
 
         mWorkspace.setLayoutManager(manager);
         mWorkspace.setAdapter(mAdapter);
-
         mPresenter.loadJsonFromAssets(this, "workspace.json");
     }
 
     @Override
-    public void initWorkspace(ArrayList<WorkspaceGroupContent> groupDataList) {
-        mAdapter.setData(groupDataList);
+    public void initWorkspace(WorkspaceData result) {
+        if (result.getNeedDivider()) {
+            mWorkspace.addItemDecoration(new DividerDecoration(this, Workspace.GRID_SPANCOUNT));
+        }
+
+        mAdapter.setData(result.workspaceGroups);
     }
 
     @Override

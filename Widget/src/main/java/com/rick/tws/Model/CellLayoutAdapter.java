@@ -2,6 +2,7 @@ package com.rick.tws.Model;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author yongchen
  * @version v1.0
  * @date 2018-05-30
- * @des 工作台Wrokspace一页展示适配器
+ * @des
  * @modify On 2018-05-30 by author for reason ...
  */
 public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder, RecyclerView.ViewHolder> {
@@ -107,6 +108,14 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
             holder.openView.setText(mCollapseStateMap.get(group) ? mSwith_on : mSwith_off);
         } else {
             holder.openView.setVisibility(View.GONE);
+        }
+
+        if (!TextUtils.isEmpty(groupContent.getGIcon())) {
+            holder.groupIcon.setVisibility(View.VISIBLE);
+            int resID = mContext.getResources().getIdentifier(groupContent.getGIcon(), "drawable", mContext.getApplicationInfo().packageName);
+            holder.groupIcon.setImageResource(resID);
+        } else {
+            holder.groupIcon.setVisibility(View.INVISIBLE);
         }
     }
 

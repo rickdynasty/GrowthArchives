@@ -1,8 +1,6 @@
 package com.rick.tws.View;
 
-import com.rick.tws.Model.WorkspaceGroupContent;
-
-import java.util.ArrayList;
+import com.rick.tws.Model.WorkspaceData;
 
 /**
  * Copyright (C) 2018 pa_zwt Licensed under the Apache License, Version 1.0 (the "License");
@@ -14,7 +12,7 @@ import java.util.ArrayList;
  * @modify On 2018-05-30 by author for reason ...
  */
 public interface IWorkspaceUI {
-    void initWorkspace(ArrayList<WorkspaceGroupContent> groupDataList);
+    void initWorkspace(WorkspaceData result);
 
     void loadJsonfailure(String errorDes, Exception e);
 }

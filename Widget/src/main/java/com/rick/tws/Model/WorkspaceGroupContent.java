@@ -19,7 +19,7 @@ public class WorkspaceGroupContent {
     private String groupName;
     private int groupId;
     public int header_height = CellItemStruct.INVALID_VALUE;
-    public String gicon;
+    protected String gicon;
 
     @Deprecated
     protected String header_textColor;     //for json
@@ -94,4 +94,6 @@ public class WorkspaceGroupContent {
     public String getGIcon() {
         return this.gicon;
     }
+
+    protected boolean needDivider = true;
 }

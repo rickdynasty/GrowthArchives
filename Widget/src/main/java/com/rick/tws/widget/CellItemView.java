@@ -7,7 +7,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -48,6 +47,8 @@ public class CellItemView extends RelativeLayout {
 
     //
     private final int titleLeftMargin, titleTopMargin, titleBottomMargin;
+    //用于DividerDecoration绘制分割线用
+    private int mPositionInGroup = -1;
 
     public CellItemView(Context context) {
         this(context, null);
@@ -230,5 +231,13 @@ public class CellItemView extends RelativeLayout {
 
     public String getAction() {
         return mAction;
+    }
+
+    public void setPositionInGroup(int positionInGroup) {
+        this.mPositionInGroup = positionInGroup;
+    }
+
+    public int getPositionInGroup() {
+        return mPositionInGroup;
     }
 }

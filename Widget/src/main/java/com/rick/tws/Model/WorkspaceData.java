@@ -22,12 +22,21 @@ import java.util.ArrayList;
 public class WorkspaceData {
     private boolean unprocessing = true;
     public ArrayList<WorkspaceGroupContent> workspaceGroups;
+    private boolean needDivider = true;
+    public boolean getNeedDivider(){
+        return needDivider;
+    }
 
     public void processing(Context context) {
         if (unprocessing) {
             final Resources res = context.getResources();
             boolean uniformConfig_item_width, uniformConfig_item_height, uniformConfig_icon_width, uniformConfig_icon_height;
             for (WorkspaceGroupContent content : workspaceGroups) {
+                if (!content.needDivider) {
+                    //只要有地方配置了不需要divider就不设置DividerDecoration
+                    needDivider = false;
+                }
+
                 //行高 dp到pix
                 if (CellItemStruct.INVALID_VALUE < content.header_height) {
                     content.header_height = DensityUtils.dip2px(context, content.header_height);
