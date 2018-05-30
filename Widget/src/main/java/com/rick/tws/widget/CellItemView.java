@@ -7,6 +7,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -45,8 +46,8 @@ public class CellItemView extends RelativeLayout {
     private GradientDrawable mGradientDrawable = null;
     private final float mDefaultTextSize;
 
-    //
-    private final int titleLeftMargin, titleTopMargin, titleBottomMargin;
+    //0 - on; 1 - down;
+    private final int mDefaultTitleLeftMargin0, mDefaultTitleTopMargin0, mDefaultTitleBottomMargin1;
     //用于DividerDecoration绘制分割线用
     private int mPositionInGroup = -1;
 
@@ -60,11 +61,10 @@ public class CellItemView extends RelativeLayout {
 
     public CellItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        titleLeftMargin = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_left_0);
-        titleTopMargin = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
-        titleBottomMargin = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_bottom_1);
-        mDefaultTextSize = getResources().getDimension(R.dimen.tws_Micro_TextSize);
-
+        mDefaultTitleLeftMargin0 = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_left_0);
+        mDefaultTitleTopMargin0 = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
+        mDefaultTitleBottomMargin1 = getResources().getDimensionPixelSize(R.dimen.cell_item_title_margin_bottom_1);
+        mDefaultTextSize = 13.0f;
     }
 
     public void setCardType(int cardType) {
@@ -136,10 +136,18 @@ public class CellItemView extends RelativeLayout {
         lpIcon.addRule(RelativeLayout.CENTER_HORIZONTAL);
         switch (mCardType) {
             case TITLE_ON_CARD_TYPE:
-                lpIcon.topMargin = (cardStruct.item_height - cardStruct.icon_height) / 2 + titleTopMargin;
+                if (cardStruct.iconPaddinTopEffective()) {
+                    lpIcon.topMargin = cardStruct.getIconPaddingTop();
+                } else {
+                    lpIcon.topMargin = (int) ((cardStruct.item_height - cardStruct.icon_height) / 2 + mDefaultTextSize);
+                }
                 break;
             case TITLE_DOWN_CARD_TYPE:
-                lpIcon.topMargin = (cardStruct.item_height - cardStruct.icon_height) / 2 - titleTopMargin;
+                if (cardStruct.iconPaddinTopEffective()) {
+                    lpIcon.topMargin = cardStruct.getIconPaddingTop();
+                } else {
+                    lpIcon.topMargin = (int) ((cardStruct.item_height - cardStruct.icon_height) / 2 - mDefaultTextSize);
+                }
                 break;
         }
         updateViewLayout(mIcon, lpIcon);
@@ -148,26 +156,36 @@ public class CellItemView extends RelativeLayout {
             mTitle = new TextView(getContext());
             addView(mTitle);
         }
-//        if (cardStruct.textSizeEffective()) {
-//            mTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, cardStruct.getTextSize());
-//        } else {
-//            mTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, mDefaultTextSize);
-//        }
 
         LayoutParams lpTitle = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         switch (mCardType) {
             case TITLE_ON_CARD_TYPE:
-                lpTitle.leftMargin = titleLeftMargin;
-                lpTitle.topMargin = titleTopMargin;
+                lpTitle.leftMargin = mDefaultTitleLeftMargin0;
+                if (cardStruct.titlePaddingEffective()) {
+                    lpTitle.topMargin = cardStruct.getTitlePadding();
+                } else {
+                    lpTitle.topMargin = mDefaultTitleTopMargin0;
+                }
                 break;
             case TITLE_DOWN_CARD_TYPE:
-                lpTitle.bottomMargin = titleBottomMargin;
+                if (cardStruct.titlePaddingEffective()) {
+                    lpTitle.bottomMargin = cardStruct.getTitlePadding();
+                } else {
+                    lpTitle.bottomMargin = mDefaultTitleBottomMargin1;
+                }
                 lpTitle.addRule(RelativeLayout.CENTER_HORIZONTAL);
                 lpTitle.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                 break;
         }
         updateViewLayout(mTitle, lpTitle);
 
+        if (cardStruct.titleTextSizeEffective()) {
+            mTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, cardStruct.getTitleTextSize());
+        } else {
+            mTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, mDefaultTextSize);
+        }
+
+        mTitle.setTextColor(cardStruct.getTitleTextColor());
         mTitle.setText(cardStruct.getTitle());
         if (!TextUtils.isEmpty(cardStruct.getIconName())) {
             mIcon.setImageResource(getResources().getIdentifier(cardStruct.getIconName(), "drawable", getContext().getApplicationInfo().packageName));

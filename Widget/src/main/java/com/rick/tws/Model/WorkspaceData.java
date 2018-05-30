@@ -23,7 +23,8 @@ public class WorkspaceData {
     private boolean unprocessing = true;
     public ArrayList<WorkspaceGroupContent> workspaceGroups;
     private boolean needDivider = true;
-    public boolean getNeedDivider(){
+
+    public boolean getNeedDivider() {
         return needDivider;
     }
 
@@ -31,6 +32,7 @@ public class WorkspaceData {
         if (unprocessing) {
             final Resources res = context.getResources();
             boolean uniformConfig_item_width, uniformConfig_item_height, uniformConfig_icon_width, uniformConfig_icon_height;
+            boolean uniformConfig_item_textSize, uniformConfig_item_title_padding, uniformConfig_item_icon_padding_top;
             for (WorkspaceGroupContent content : workspaceGroups) {
                 if (!content.needDivider) {
                     //只要有地方配置了不需要divider就不设置DividerDecoration
@@ -72,6 +74,17 @@ public class WorkspaceData {
                     content.icon_height = DensityUtils.dip2px(context, content.icon_height);
                 }
 
+                uniformConfig_item_textSize = CellItemStruct.MIN_TEXT_SIZE < content.cell_title_textSize;
+                uniformConfig_item_title_padding = content.cell_title_padding != CellItemStruct.INVALID_VALUE;
+                if (uniformConfig_item_title_padding) {
+                    content.cell_title_padding = DensityUtils.dip2px(context, content.cell_title_padding);
+                }
+
+                uniformConfig_item_icon_padding_top = content.cell_icon_padding_top != CellItemStruct.INVALID_VALUE;
+                if (uniformConfig_item_icon_padding_top) {
+                    content.cell_icon_padding_top = DensityUtils.dip2px(context, content.cell_icon_padding_top);
+                }
+
                 //rick_Note:这里应该做一个事 - 宽高应该按屏幕比例来赋值
                 for (CellItemStruct itemStruct : content.cellItemList) {
                     if (uniformConfig_item_width) {
@@ -106,6 +119,10 @@ public class WorkspaceData {
                         itemStruct.icon_height = res.getDimensionPixelSize(R.dimen.cell_item_cion_size);
                     }
 
+                    if (!TextUtils.isEmpty(itemStruct.textColor)) {
+                        itemStruct.setTitleTextColor(Color.parseColor(itemStruct.textColor));
+                    }
+
                     if (!TextUtils.isEmpty(itemStruct.background)) {
                         itemStruct.setBackgroundColor(Color.parseColor(itemStruct.background));
                     }
@@ -121,6 +138,22 @@ public class WorkspaceData {
 
                     if (!TextUtils.isEmpty(itemStruct.endColor)) {
                         itemStruct.setGradientEndColor(Color.parseColor(itemStruct.endColor));
+                    }
+
+                    if (uniformConfig_item_textSize) {
+                        itemStruct.textSize = content.cell_title_textSize;
+                    }
+
+                    if (uniformConfig_item_title_padding) {
+                        itemStruct.title_padding = content.cell_title_padding;
+                    } else if (itemStruct.title_padding != CellItemStruct.INVALID_VALUE) {
+                        itemStruct.title_padding = DensityUtils.dip2px(context, itemStruct.title_padding);
+                    }
+
+                    if (uniformConfig_item_icon_padding_top) {
+                        itemStruct.icon_padding_top = content.cell_icon_padding_top;
+                    } else if (itemStruct.icon_padding_top != CellItemStruct.INVALID_VALUE) {
+                        itemStruct.icon_padding_top = DensityUtils.dip2px(context, itemStruct.icon_padding_top);
                     }
                 }
             }

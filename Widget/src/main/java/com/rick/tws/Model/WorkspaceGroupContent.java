@@ -33,9 +33,13 @@ public class WorkspaceGroupContent {
         this.headerTextColor = color;
     }
 
-    public int header_textSize = CellItemStruct.INVALID_VALUE;
+    public float header_textSize = CellItemStruct.INVALID_VALUE;
 
-    public int getHeaderTextSize() {
+    public boolean header_textSizeEffective() {
+        return CellItemStruct.MIN_TEXT_SIZE < header_textSize;
+    }
+
+    public float getHeaderTextSize() {
         return header_textSize;
     }
 
@@ -64,12 +68,16 @@ public class WorkspaceGroupContent {
         this.header_backgroundColor = color;
     }
 
-    //为当前组统一配置
+    /////////////////////////////////// begin:为当前组统一配置 ///////////////////////////////////
     public int item_width = CellItemStruct.INVALID_VALUE;
     public int item_height = CellItemStruct.INVALID_VALUE;
     public int icon_width = CellItemStruct.INVALID_VALUE;
     public int icon_height = CellItemStruct.INVALID_VALUE;
+    protected float cell_title_textSize = CellItemStruct.INVALID_VALUE;
+    protected int cell_title_padding = CellItemStruct.INVALID_VALUE;
+    protected int cell_icon_padding_top = CellItemStruct.INVALID_VALUE;
     public boolean equal_width = true;
+    /////////////////////////////////// end:为当前组统一配置 ///////////////////////////////////
 
     public void setName(String name) {
         this.groupName = name;

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,9 +89,12 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
 
     @Override
     protected void onBindGroupHeaderViewHolder(final HeaderHolder holder, final int group) {
-        holder.titleView.setText(groupDataList.get(group).getName());
-
         final WorkspaceGroupContent groupContent = groupDataList.get(group);
+        holder.titleView.setText(groupContent.getName());
+        if(groupContent.header_textSizeEffective()){
+            holder.titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, groupContent.getHeaderTextSize());
+        }
+
         if (groupContent.getIsShrink() && Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT < groupContent.cellItemList.size()) {
             holder.openView.setVisibility(View.VISIBLE);
 

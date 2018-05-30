@@ -28,6 +28,7 @@ public class CellItemStruct {
     public static final String CARD_WEIGHT = "weight";
 
     public static final int INVALID_VALUE = -1;
+    public static final float MIN_TEXT_SIZE = 5.0f;
 
     private String title = "";
     private String icon = "";
@@ -53,8 +54,12 @@ public class CellItemStruct {
     private String action = "";
 
     private int weight = INVALID_VALUE;
+    @Deprecated
     protected String textColor;
-    protected int textSize = INVALID_VALUE;
+    private int titleTextColor = Color.BLACK;
+
+    protected float textSize = INVALID_VALUE;
+
     @Deprecated
     protected String background;
     private int backgroundColor = Color.WHITE;
@@ -62,6 +67,8 @@ public class CellItemStruct {
     public int item_height = INVALID_VALUE;
     public int icon_width = INVALID_VALUE;
     public int icon_height = INVALID_VALUE;
+    protected int title_padding = INVALID_VALUE;
+    protected int icon_padding_top = INVALID_VALUE;
 
     public CellItemStruct() {
     }
@@ -228,16 +235,24 @@ public class CellItemStruct {
         return INVALID_VALUE != gradientStartColor && INVALID_VALUE != gradientEndColor;
     }
 
+    public int getTitleTextColor() {
+        return titleTextColor;
+    }
+
+    public void setTitleTextColor(int color) {
+        this.titleTextColor = color;
+    }
+
+    public float getTitleTextSize() {
+        return this.textSize;
+    }
+
     public void setBackgroundColor(int color) {
         this.backgroundColor = color;
     }
 
     public int getBackgroundColor() {
         return this.backgroundColor;
-    }
-
-    public float getTextSize() {
-        return textSize;
     }
 
     public boolean bkColorEffective() {
@@ -248,7 +263,23 @@ public class CellItemStruct {
         return INVALID_VALUE < weight;
     }
 
-    public boolean textSizeEffective() {
-        return INVALID_VALUE < textSize;
+    public boolean titleTextSizeEffective() {
+        return MIN_TEXT_SIZE < textSize;
+    }
+
+    public boolean titlePaddingEffective() {
+        return title_padding != INVALID_VALUE;
+    }
+
+    public int getTitlePadding() {
+        return this.title_padding;
+    }
+
+    public boolean iconPaddinTopEffective() {
+        return icon_padding_top != INVALID_VALUE;
+    }
+
+    public int getIconPaddingTop() {
+        return this.icon_padding_top;
     }
 }
