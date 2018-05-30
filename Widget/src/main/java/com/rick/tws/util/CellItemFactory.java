@@ -115,36 +115,7 @@ public class CellItemFactory {
         }
 
         CellItemView itemView = new CellItemView(context);
-        itemView.setCardType(cardStruct.getCardType());
-
-        if (cardStruct.gradientCenterEffective()) {
-            itemView.setCardContent(
-                    cardStruct.getCardType(),
-                    cardStruct.getTitle(),
-                    cardStruct.getIconName(),
-                    cardStruct.getShadowResName(),
-                    new int[]{cardStruct.getGradientStartColor(), cardStruct.getGradientCenterColor(), cardStruct.getGradientEndColor()},
-                    cardStruct.getActionType(),
-                    cardStruct.getAction());
-        } else if (cardStruct.gradientEffective()) {
-            itemView.setCardContent(
-                    cardStruct.getCardType(),
-                    cardStruct.getTitle(),
-                    cardStruct.getIconName(),
-                    cardStruct.getShadowResName(),
-                    new int[]{cardStruct.getGradientStartColor(), cardStruct.getGradientEndColor()},
-                    cardStruct.getActionType(),
-                    cardStruct.getAction());
-        } else {
-            itemView.setCardContent(
-                    cardStruct.getCardType(),
-                    cardStruct.getTitle(),
-                    cardStruct.getIconName(),
-                    cardStruct.getShadowResName(),
-                    null,
-                    cardStruct.getActionType(),
-                    cardStruct.getAction());
-        }
+        itemView.init(cardStruct);
 
         if (context instanceof View.OnClickListener) {
             itemView.setOnClickListener((View.OnClickListener) context);

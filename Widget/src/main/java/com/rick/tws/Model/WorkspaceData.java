@@ -54,6 +54,7 @@ public class WorkspaceData {
                     content.icon_height = DensityUtils.dip2px(context, content.icon_height);
                 }
 
+                //rick_Note:这里应该做一个事 - 宽高应该按屏幕比例来赋值
                 for (CellItemStruct itemStruct : content.cellItemList) {
                     if (uniformConfig_item_width) {
                         itemStruct.item_width = content.item_width;
@@ -65,16 +66,44 @@ public class WorkspaceData {
 
                     if (uniformConfig_item_height) {
                         itemStruct.item_height = content.item_height;
+                    } else if (itemStruct.item_height != CellItemStruct.INVALID_VALUE) {
+                        itemStruct.item_height = DensityUtils.dip2px(context, itemStruct.item_height);
+                    } else {
+                        itemStruct.item_height = res.getDimensionPixelSize(R.dimen.cell_item_height);
                     }
 
                     if (uniformConfig_icon_width) {
                         itemStruct.icon_width = content.icon_width;
+                    } else if (itemStruct.icon_width != CellItemStruct.INVALID_VALUE) {
+                        itemStruct.icon_width = DensityUtils.dip2px(context, itemStruct.icon_width);
+                    } else {
+                        itemStruct.icon_width = res.getDimensionPixelSize(R.dimen.cell_item_cion_size);
                     }
 
                     if (uniformConfig_icon_height) {
                         itemStruct.icon_height = content.icon_height;
+                    } else if (itemStruct.icon_width != CellItemStruct.INVALID_VALUE) {
+                        itemStruct.icon_height = DensityUtils.dip2px(context, itemStruct.icon_height);
+                    } else {
+                        itemStruct.icon_height = res.getDimensionPixelSize(R.dimen.cell_item_cion_size);
                     }
 
+                    if (!TextUtils.isEmpty(itemStruct.background)) {
+                        itemStruct.setBackgroundColor(Color.parseColor(itemStruct.background));
+                    }
+
+                    if (!TextUtils.isEmpty(itemStruct.startColor)) {
+                        itemStruct.setGradientStartColor(Color.parseColor(itemStruct.startColor));
+                    }
+
+
+                    if (!TextUtils.isEmpty(itemStruct.centerColor)) {
+                        itemStruct.setGradientCenterColor(Color.parseColor(itemStruct.centerColor));
+                    }
+
+                    if (!TextUtils.isEmpty(itemStruct.endColor)) {
+                        itemStruct.setGradientEndColor(Color.parseColor(itemStruct.endColor));
+                    }
                 }
             }
 

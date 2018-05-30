@@ -3,6 +3,7 @@
     package="com.rick.tws.widget">
 
     <application
+        android:name="com.rick.tws.TheApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"

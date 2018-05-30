@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.rick.tws.TheApplication;
 import com.rick.tws.util.FileUtils;
 
 import java.io.IOException;
@@ -31,6 +32,9 @@ public class WorkspaceModel implements BaseJsonModel {
             String content = FileUtils.getJsonFromAssets(context, jsonFileName);
             Gson gson = new Gson();
             WorkspaceData workspaceData = gson.fromJson(content, WorkspaceData.class);
+            if (null != workspaceData) {
+                workspaceData.processing(TheApplication.getInstance());
+            }
             callback.success(workspaceData);
         } catch (IOException e) {
             callback.failure("loadJsonFromAssets:" + jsonFileName, e);

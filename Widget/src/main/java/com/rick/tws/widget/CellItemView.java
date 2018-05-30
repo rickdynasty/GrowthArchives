@@ -8,8 +8,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +18,10 @@ import com.rick.tws.Model.CellItemStruct;
 public class CellItemView extends RelativeLayout {
     private static final String TAG = CellItemView.class.getSimpleName();
 
+    // 卡片类型 0：默认是标题在上方 1、标题在下放 2、自定义卡片
+    public static final int TITLE_ON_CARD_TYPE = 0;     //标题在上
+    public static final int TITLE_DOWN_CARD_TYPE = 1;   //标题在下
+    //    public static final int CUSTOMIZED_CARD_TYPE = 2;   //自定义
     private int mCardType = 0;
 
     private int mActionType = 0;
@@ -56,23 +59,80 @@ public class CellItemView extends RelativeLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    private void sureWidget() {
-        if (null == mBackgroundImage) {
-            mBackgroundImage = new ImageView(getContext());
-            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            addView(mBackgroundImage, lp);
+    private boolean hasInit = false;
+
+    public void init(CellItemStruct cardStruct) {
+        if (hasInit)
+            return;
+
+        ViewGroup.LayoutParams lp = getLayoutParams();
+        lp.width = cardStruct.item_width;
+        lp.height = cardStruct.item_height;
+        setLayoutParams(lp);
+
+        if (null == cardStruct) {
+            throw new IllegalArgumentException("cardStruct cannot be empty!");
+        }
+
+        mCardType = cardStruct.getCardType();
+        initWidget(cardStruct);
+
+        mActionType = cardStruct.getActionType();
+        mAction = cardStruct.getAction();
+        hasInit = true;
+    }
+
+    private void initWidget(final CellItemStruct cardStruct) {
+        //处理渐变背景
+        int[] colors;
+        if (cardStruct.gradientCenterEffective()) {
+            colors = new int[]{cardStruct.getGradientStartColor(), cardStruct.getGradientCenterColor(), cardStruct.getGradientEndColor()};
+        } else if (cardStruct.gradientEffective()) {
+            colors = new int[]{cardStruct.getGradientStartColor(), cardStruct.getGradientEndColor()};
+        } else {
+            colors = null;
+        }
+
+        //优先使用渐变
+        if (null != colors) {
+            // 处理 shadowImageView mBackgroundImage
+            if (null == mBackgroundImage) {
+                mBackgroundImage = new ImageView(getContext());
+                LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                addView(mBackgroundImage, lp);
+            }
+
+            mBackgroundImage.setVisibility(VISIBLE);
+            setCardGradientColor(colors);
+
+            if (!TextUtils.isEmpty(cardStruct.getShadowResName())) {
+                setBackgroundResource(getResources().getIdentifier(cardStruct.getShadowResName(), "drawable", getContext().getApplicationInfo().packageName));
+            }
+        } else {
+            if (null != mBackgroundImage) {
+                mBackgroundImage.setVisibility(GONE);
+            }
+
+            //如果没使用渐变，就采用背景色
+            if (cardStruct.bkColorEffective()) {
+                setBackgroundColor(cardStruct.getBackgroundColor());
+            }
         }
 
         if (null == mIcon) {
             mIcon = new ImageView(getContext());
             final Resources res = getResources();
-            LayoutParams lp = new LayoutParams(res.getDimensionPixelSize(R.dimen.cell_item_cion_size), res.getDimensionPixelSize(R.dimen.cell_item_cion_size));
+            LayoutParams lp = new LayoutParams(cardStruct.icon_width, cardStruct.icon_height);
             lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            if (0 == mCardType) {
-                lp.topMargin = res.getDimensionPixelSize(R.dimen.cell_item_icon_margin_top_0);
-            } else {
-                lp.topMargin = res.getDimensionPixelSize(R.dimen.cell_item_icon_margin_top_1);
+            switch (mCardType) {
+                case TITLE_ON_CARD_TYPE:
+                    lp.topMargin = (cardStruct.item_height - cardStruct.icon_height) / 2 + res.getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
+                    break;
+                case TITLE_DOWN_CARD_TYPE:
+                    lp.topMargin = (cardStruct.item_height - cardStruct.icon_height) / 2 - res.getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
+                    break;
             }
+
             addView(mIcon, lp);
         }
 
@@ -80,69 +140,26 @@ public class CellItemView extends RelativeLayout {
             mTitle = new TextView(getContext());
             final Resources res = getResources();
             LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            if (0 == mCardType) {
-                lp.leftMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_left_0);
-                lp.topMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
-            } else {
-                lp.bottomMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_bottom_1);
-                lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+            switch (mCardType) {
+                case TITLE_ON_CARD_TYPE:
+                    lp.leftMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_left_0);
+                    lp.topMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_top_0);
+                    break;
+                case TITLE_DOWN_CARD_TYPE:
+                    lp.bottomMargin = res.getDimensionPixelSize(R.dimen.cell_item_title_margin_bottom_1);
+                    lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                    break;
             }
+
             addView(mTitle, lp);
         }
-    }
 
-    public void setCardContent(CharSequence title, final int iconRes, final int shadowRes) {
-        sureWidget();
-        Log.i(TAG, "title=" + title);
-        setBackgroundResource(shadowRes);
-        mTitle.setText(title);
-        mIcon.setImageResource(iconRes);
-        mBackgroundImage.setVisibility(View.GONE);
-    }
-
-    public void setCardContent(CharSequence title, final int iconRes, final int shadowRes, final int bgRes, final boolean isDrawalbeBgRes) {
-        sureWidget();
-        Log.i(TAG, "title=" + title);
-        setBackgroundResource(shadowRes);
-        mTitle.setText(title);
-        mIcon.setImageResource(iconRes);
-        if (isDrawalbeBgRes) {
-            mBackgroundImage.setImageResource(bgRes);
-        } else {
-            //mBackgroundImage.setImageDrawable(new ColorDrawable(bgRes));
+        mTitle.setText(cardStruct.getTitle());
+        if (!TextUtils.isEmpty(cardStruct.getIconName())) {
+            mIcon.setImageResource(getResources().getIdentifier(cardStruct.getIconName(), "drawable", getContext().getApplicationInfo().packageName));
         }
-    }
-
-    public void setCardContent(int cardType, CharSequence title, final int iconRes, final int shadowRes, @ColorInt int[] bgGradientColors, int actionType, String action) {
-        sureWidget();
-        Log.i(TAG, "title=" + title);
-
-        mCardType = cardType;
-
-        setBackgroundResource(shadowRes);
-        mTitle.setText(title);
-        mIcon.setImageResource(iconRes);
-        setCardGradientColor(bgGradientColors);
-
-        mActionType = actionType;
-        mAction = action;
-    }
-
-    public void setCardContent(int cardType, String title, String iconName, String shadowResName, int[] colors, int actionType, String action) {
-        sureWidget();
-        Log.i(TAG, "title=" + title);
-
-        mCardType = cardType;
-
-        setBackgroundResource(getResources().getIdentifier(shadowResName, "drawable", getContext().getApplicationInfo().packageName));
-        mTitle.setText(title);
-        mIcon.setImageResource(getResources().getIdentifier(iconName, "drawable", getContext().getApplicationInfo().packageName));
-        if (null != colors) {
-            setCardGradientColor(colors);
-        }
-        mActionType = actionType;
-        mAction = action;
     }
 
     public void setCardGradientColor(final int[] colors) {
@@ -202,42 +219,5 @@ public class CellItemView extends RelativeLayout {
 
     public String getAction() {
         return mAction;
-    }
-
-    public void init(CellItemStruct cardStruct) {
-        if (null == cardStruct) {
-            throw new IllegalArgumentException("cardStruct cannot be empty!");
-        }
-
-        sureWidget();
-        Log.i(TAG, "title=" + cardStruct.getTitle());
-
-        mCardType = cardStruct.getCardType();
-
-        if (!TextUtils.isEmpty(cardStruct.getShadowResName())) {
-            setBackgroundResource(getResources().getIdentifier(cardStruct.getShadowResName(), "drawable", getContext().getApplicationInfo().packageName));
-        }
-
-        mTitle.setText(cardStruct.getTitle());
-        if (!TextUtils.isEmpty(cardStruct.getIconName())) {
-            mIcon.setImageResource(getResources().getIdentifier(cardStruct.getIconName(), "drawable", getContext().getApplicationInfo().packageName));
-        }
-
-        cardStruct.checkGradientColor();
-        int[] colors = null;
-        if (cardStruct.gradientCenterEffective()) {
-            colors = new int[]{cardStruct.getGradientStartColor(), cardStruct.getGradientCenterColor(), cardStruct.getGradientEndColor()};
-        } else if (cardStruct.gradientEffective()) {
-            colors = new int[]{cardStruct.getGradientStartColor(), cardStruct.getGradientEndColor()};
-        } else if (cardStruct.bkColorEffective()) {
-            colors = new int[]{cardStruct.getGradientStartColor()};
-        }
-
-        if (null != colors) {
-            setCardGradientColor(colors);
-        }
-
-        mActionType = cardStruct.getActionType();
-        mAction = cardStruct.getAction();
     }
 }

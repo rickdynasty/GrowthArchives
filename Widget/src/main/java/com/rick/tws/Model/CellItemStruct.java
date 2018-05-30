@@ -1,7 +1,6 @@
 package com.rick.tws.Model;
 
 import android.graphics.Color;
-import android.text.TextUtils;
 import android.util.Log;
 
 public class CellItemStruct {
@@ -35,9 +34,12 @@ public class CellItemStruct {
     private int gradientEndColor = INVALID_VALUE;
 
     //for json config
-    private String startColor;
-    private String centerColor;
-    private String endColor;
+    @Deprecated
+    protected String startColor;
+    @Deprecated
+    protected String centerColor;
+    @Deprecated
+    protected String endColor;
 
     private int action_type = INVALID_VALUE;
     private String action = "";
@@ -47,11 +49,11 @@ public class CellItemStruct {
     protected int textSize;
     @Deprecated
     protected String background;
-    protected int backgroundColor = Color.WHITE;
-    public int item_width = INVALID_VALUE;;
-    public int item_height = INVALID_VALUE;;
-    public int icon_width = INVALID_VALUE;;
-    public int icon_height = INVALID_VALUE;;
+    private int backgroundColor = Color.WHITE;
+    public int item_width = INVALID_VALUE;
+    public int item_height = INVALID_VALUE;
+    public int icon_width = INVALID_VALUE;
+    public int icon_height = INVALID_VALUE;
 
     public CellItemStruct() {
     }
@@ -149,17 +151,14 @@ public class CellItemStruct {
     }
 
     public void setStartColor(String startColor) {
-        Log.i(TAG, "call setStartColor");
         this.startColor = startColor;
     }
 
     public void setCenterColor(String centerColor) {
-        Log.i(TAG, "call setCenterColor");
         this.centerColor = centerColor;
     }
 
     public void setEndColor(String endColor) {
-        Log.i(TAG, "call setEndColor");
         this.endColor = endColor;
     }
 
@@ -230,25 +229,19 @@ public class CellItemStruct {
         return INVALID_VALUE != gradientStartColor && INVALID_VALUE != gradientEndColor;
     }
 
+    public void setBackgroundColor(int color) {
+        this.backgroundColor = color;
+    }
+
+    public int getBackgroundColor() {
+        return this.backgroundColor;
+    }
+
     public boolean bkColorEffective() {
-        return INVALID_VALUE != gradientStartColor;
+        return INVALID_VALUE != this.backgroundColor;
     }
 
     public boolean weightEffective() {
         return INVALID_VALUE < weight;
-    }
-
-    public void checkGradientColor() {
-        if (INVALID_VALUE == gradientStartColor && !TextUtils.isEmpty(startColor)) {
-            gradientStartColor = Color.parseColor(startColor);
-        }
-
-        if (INVALID_VALUE == gradientCenterColor && !TextUtils.isEmpty(centerColor)) {
-            gradientCenterColor = Color.parseColor(centerColor);
-        }
-
-        if (INVALID_VALUE == gradientEndColor && !TextUtils.isEmpty(endColor)) {
-            gradientEndColor = Color.parseColor(endColor);
-        }
     }
 }

@@ -13,7 +13,7 @@ public class WorkspaceGroupContent {
     public String gicon;
 
     @Deprecated
-    public String header_textColor;     //for json
+    protected String header_textColor;     //for json
     private int headerTextColor = Color.WHITE;
     public int getHeaderTextColor() {
         return headerTextColor;
@@ -38,7 +38,7 @@ public class WorkspaceGroupContent {
     }
 
     @Deprecated
-    public String header_background;     //for json
+    protected String header_background;     //for json
     private int header_backgroundColor = Color.WHITE;
     public int getHeaderBackgroundColor() {
         return header_backgroundColor;

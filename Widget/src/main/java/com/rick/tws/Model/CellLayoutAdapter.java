@@ -75,20 +75,23 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
 
     @Override
     protected void onBindSectionHeaderViewHolder(final HeaderHolder holder, final int section) {
-        holder.openView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isCollapse = mCollapseStateMap.get(section);
-                String text = isCollapse ? mSwith_off : mSwith_on;
-                mCollapseStateMap.put(section, !isCollapse);
-                holder.openView.setText(text);
-                notifyDataSetChanged();
-            }
-        });
-
         holder.titleView.setText(groupDataList.get(section).getName());
-        if (Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT < groupDataList.get(section).cellItemList.size()) {
+
+        final WorkspaceGroupContent groupContent = groupDataList.get(section);
+        if (groupContent.getIsShrink() && Workspace.GRID_SPANCOUNT * Workspace.GRID_GROUP_OFF_MULTIPLE_SPANCOUNT < groupContent.cellItemList.size()) {
             holder.openView.setVisibility(View.VISIBLE);
+
+            holder.openView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean isCollapse = mCollapseStateMap.get(section);
+                    String text = isCollapse ? mSwith_off : mSwith_on;
+                    mCollapseStateMap.put(section, !isCollapse);
+                    holder.openView.setText(text);
+                    notifyDataSetChanged();
+                }
+            });
+
             holder.openView.setText(mCollapseStateMap.get(section) ? mSwith_on : mSwith_off);
         } else {
             holder.openView.setVisibility(View.GONE);
@@ -103,7 +106,7 @@ public class CellLayoutAdapter extends BaseAdapter<HeaderHolder, CellItemHolder,
     @Override
     protected void onBindItemViewHolder(CellItemHolder holder, int section, int position) {
         holder.card.init(groupDataList.get(section).cellItemList.get(position));
-        if(mContext instanceof View.OnClickListener){
+        if (mContext instanceof View.OnClickListener) {
             holder.card.setOnClickListener((View.OnClickListener) mContext);
         }
     }
