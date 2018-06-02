@@ -37,7 +37,7 @@ public class AndroidJavaScript {
      * @param phoneNum 电话号码
      */
     @JavascriptInterface
-    public void openPhone(final String phoneNum) {
+    public void diallPhone(final String phoneNum) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         Uri data = Uri.parse("tel:" + phoneNum);
         intent.setData(data);
@@ -78,10 +78,15 @@ public class AndroidJavaScript {
      * @param
      */
     @JavascriptInterface
-    public void openSMS() {
-        Intent intentFinalMessage = new Intent(Intent.ACTION_VIEW);
-        intentFinalMessage.setType("vnd.android-dir/mms-sms");
-        context.startActivity(intentFinalMessage);
+    public void openSMS(final String number,final String body) {
+//        Intent intentFinalMessage = new Intent(Intent.ACTION_VIEW);
+//        intentFinalMessage.setType("vnd.android-dir/mms-sms");
+
+        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+        sendIntent.setData(Uri.parse("smsto:" + number));
+        sendIntent.putExtra("sms_body", body);
+
+        context.startActivity(sendIntent);
     }
 
     @JavascriptInterface

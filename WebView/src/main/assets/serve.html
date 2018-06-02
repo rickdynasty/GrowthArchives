@@ -26,14 +26,15 @@ function createTable(phon){
            if(i==0){
               cell1.innerHTML= "<a href='javascript:Android.openPhone(\""+child[n]+"\")'>" +child[n];
            }else if(i==1){
-             cell1.innerHTML= "<img src=\"file:///android_asset/qqicon.png\" height=\"14\" width=\"16\" > "+ "<a href='javascript:Android.callQQ(\""+child[n]+"\")'>" +child[n]; 
+             cell1.innerHTML= "<img src=\"file:///android_asset/qqicon.png\" height=\"14\" width=\"16\" > "+ "<a href='javascript:Android.openSMS(\""+child[n]+"\",\""+child[n]+"\")'>" +child[n];
            }else if(i==2){
-             cell1.innerHTML= "<img src=\"file:///android_asset/wxicon.png\" height=\"12\" width=\"16\" > "+ "<a href='javascript:Android.callWeixin(\""+child[n]+"\")'>" +child[n]; 
+             cell1.innerHTML= "<img src=\"file:///android_asset/wxicon.png\" height=\"12\" width=\"16\" > "+ "<a href='javascript:Android.showTtoast(\""+child[n]+"\")'>" +child[n];
            }
            var cell2 = row.insertCell();
          }
      }
  } 
+
 
     </script>
 </head>
