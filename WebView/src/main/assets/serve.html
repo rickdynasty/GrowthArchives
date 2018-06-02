@@ -24,7 +24,7 @@ function createTable(phon){
              rowindex+=1;
              var cell1 = row.insertCell();//创建一个单元 
            if(i==0){
-              cell1.innerHTML= "<a href='javascript:Android.callPhone(\""+child[n]+"\")'>" +child[n]; 
+              cell1.innerHTML= "<a href='javascript:Android.openPhone(\""+child[n]+"\")'>" +child[n];
            }else if(i==1){
              cell1.innerHTML= "<img src=\"file:///android_asset/qqicon.png\" height=\"14\" width=\"16\" > "+ "<a href='javascript:Android.callQQ(\""+child[n]+"\")'>" +child[n]; 
            }else if(i==2){

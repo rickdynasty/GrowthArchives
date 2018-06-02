@@ -1,13 +1,20 @@
 package com.demo.tws.rick.webview.jsclass;
 
+import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.telephony.SmsManager;
 import android.webkit.JavascriptInterface;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * JS的调用的方法
@@ -16,23 +23,65 @@ import android.webkit.JavascriptInterface;
  */
 public class AndroidJavaScript {
 
-    Context c;
-    String[] qqpackage = new String[]{"com.tencent.mobileqq",
-            "com.tencent.mobileqq.activity.SplashActivity"};
-    String[] wxpackage = new String[]{"com.tencent.mm",
-            "com.tencent.mm.ui.LauncherUI"};
+    Activity context;
+    final String[] qqpackage = new String[]{"com.tencent.mobileqq", "com.tencent.mobileqq.activity.SplashActivity"};
+    final String[] wxpackage = new String[]{"com.tencent.mm", "com.tencent.mm.ui.LauncherUI"};
 
-    public AndroidJavaScript(Context c) {
-        this.c = c;
+    public AndroidJavaScript(Activity context) {
+        this.context = context;
     }
 
+    /**
+     * 拨打电话（跳转到拨号界面，用户手动点击拨打）
+     *
+     * @param phoneNum 电话号码
+     */
     @JavascriptInterface
-    public void callPhone(final String telphone) {
+    public void openPhone(final String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        context.startActivity(intent);
+    }
 
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
-                + telphone));
-        c.startActivity(intent);
+    /**
+     * 拨打电话（直接拨打电话）
+     *
+     * @param phoneNum 电话号码
+     */
+    @JavascriptInterface
+    public void callPhone(final String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        context.startActivity(intent);
+    }
 
+    /**
+     * 发短信（直接发短信）
+     *
+     * @param msg 电话号码
+     */
+    @JavascriptInterface
+    public void sendSMS(String msg) {
+        SmsManager smsManager = SmsManager.getDefault();
+        ArrayList<String> list = smsManager.divideMessage(msg);
+        for (int i = 0; i < list.size(); i++) {
+            smsManager.sendTextMessage("10086", null, list.get(i), null, null);
+        }
+    }
+
+
+    /**
+     * 发短信（调用系统的发短信界面）
+     *
+     * @param
+     */
+    @JavascriptInterface
+    public void openSMS() {
+        Intent intentFinalMessage = new Intent(Intent.ACTION_VIEW);
+        intentFinalMessage.setType("vnd.android-dir/mms-sms");
+        context.startActivity(intentFinalMessage);
     }
 
     @JavascriptInterface
@@ -48,7 +97,7 @@ public class AndroidJavaScript {
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setComponent(cmp);
-            c.startActivity(intent);
+            context.startActivity(intent);
         }
 
     }
@@ -65,7 +114,7 @@ public class AndroidJavaScript {
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setComponent(cmp);
-            c.startActivity(intent);
+            context.startActivity(intent);
 
         }
 
@@ -84,11 +133,113 @@ public class AndroidJavaScript {
         if (packageName == null || "".equals(packageName))
             return false;
         try {
-            ApplicationInfo info = c.getPackageManager().getApplicationInfo(
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo(
                     packageName, PackageManager.GET_UNINSTALLED_PACKAGES);
             return true;
         } catch (NameNotFoundException e) {
             return false;
         }
     }
+
+    /**
+     * 打开通讯录界面
+     */
+    @JavascriptInterface
+    public void openTXL() {
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.PICK");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.setType("vnd.android.cursor.dir/phone_v2");
+        context.startActivity(intent);
+    }
+
+    @JavascriptInterface
+    public void showTtoast(final String msg) {
+        Toast.makeText(context, "" + msg, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 检查是否拥有指定的所有权限
+     */
+    @JavascriptInterface
+    private boolean checkPermissionAllGranted(String[] permissions) {
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                // 只要有一个权限没有被授予, 则直接返回 false
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static final int MY_PERMISSION_REQUEST_CODE = 10000;
+    public static final int CAMERA_REQUEST_CODE = 10001;
+    public static final int RECORD_SOUND_REQUEST_CODE = 10002;
+
+    /**
+     * 一次请求多个权限, 如果其他有权限是已经授予的将会自动忽略掉
+     */
+    @JavascriptInterface
+    public void requestPermissions(String[] permissions) {
+        // 一次请求多个权限, 如果其他有权限是已经授予的将会自动忽略掉
+        ActivityCompat.requestPermissions(
+                context,
+                permissions,
+                MY_PERMISSION_REQUEST_CODE
+        );
+    }
+
+    /**
+     * 打开相机——拍照
+     */
+    @JavascriptInterface
+    public void openCamera() {
+        // 如果是拍摄 使用：ACTION_VIDEO_CAPTURE
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        context.startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+    }
+
+    /**
+     * 打开第三方应用
+     *
+     * @param pkgName 第三方应用的包名
+     * @param clsName 第三方应用activity的Name
+     */
+    @JavascriptInterface
+    public void startActivity(final String pkgName, final String clsName) {
+        ComponentName componet = new ComponentName(pkgName, clsName);
+        //pkg 就是第三方应用的包名
+        //cls 就是第三方应用的进入的第一个Activity
+        Intent intent = new Intent();
+        intent.setComponent(componet);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 打开录音机
+     */
+    @JavascriptInterface
+    public void openRecordSound() {
+        // 如果是拍摄 使用：ACTION_VIDEO_CAPTURE
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        context.startActivityForResult(takePictureIntent, RECORD_SOUND_REQUEST_CODE);
+    }
+
+    /**
+     * 打开扫码功能界面
+     */
+    @JavascriptInterface
+    public void openCodeScan() {
+
+    }
+
+    /**
+     * 打开定位功能界面
+     */
+    @JavascriptInterface
+    public void openLocation() {
+
+    }
+
 }
