@@ -8,7 +8,7 @@ import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class WebviewActivity extends AppCompatActivity implements View.OnClickListener {
     private WebView mWebView;
     private TextView logTextView;
 
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mWebView = (WebView) findViewById(R.id.webview);
-        setTitle("MainActivity");
+        setTitle("Webview");
 
         // 启用javascript
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.btn_native).setOnClickListener(this);
         findViewById(R.id.btn_second).setOnClickListener(this);
+        findViewById(R.id.open_file).setOnClickListener(this);
     }
 
     @android.webkit.JavascriptInterface
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(MainActivity.this, "js调用了Native函数", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WebviewActivity.this, "js调用了Native函数", Toast.LENGTH_SHORT).show();
                 String text = logTextView.getText() + "\njs调用了Native函数";
                 logTextView.setText(text);
             }
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(MainActivity.this, "js调用了Native函数传递参数：" + str, Toast.LENGTH_SHORT).show();
+                Toast.makeText(WebviewActivity.this, "js调用了Native函数传递参数：" + str, Toast.LENGTH_SHORT).show();
                 String text = logTextView.getText() + "\njs调用了Native函数传递参数：" + str;
                 logTextView.setText(text);
             }
@@ -67,7 +68,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mWebView.loadUrl("javascript:actionFromNativeWithParam(" + "'come from Native'" + ")");
                 break;
             case R.id.btn_second:
-                startActivity(new Intent(MainActivity.this, SecondActivity.class));
+                startActivity(new Intent(WebviewActivity.this, SecondActivity.class));
+                break;
+            case R.id.open_file:
+                startActivity(new Intent(WebviewActivity.this, WebViewOpenFileActivity.class));
                 break;
         }
     }
