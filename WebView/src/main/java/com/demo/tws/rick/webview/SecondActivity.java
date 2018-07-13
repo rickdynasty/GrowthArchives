@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -67,6 +69,16 @@ public class SecondActivity extends Activity {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
         }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            // 在这里拦截url，解析url来决定做什么行为
+            return super.shouldOverrideUrlLoading(view, request);
+        }
+    };
+
+    WebChromeClient chromeClient = new WebChromeClient(){
+
     };
 
     /**
